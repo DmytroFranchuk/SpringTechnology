@@ -1,5 +1,6 @@
-package de.telran.SpringTechnologyBankApp.entities.authentication;
+package de.telran.SpringTechnologyBankApp.entities.usersapp;
 
+import de.telran.SpringTechnologyBankApp.entities.history.LoginUserHistory;
 import jakarta.persistence.*;
 import lombok.*;
 

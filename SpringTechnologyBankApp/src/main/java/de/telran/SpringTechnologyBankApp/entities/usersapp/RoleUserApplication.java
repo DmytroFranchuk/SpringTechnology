@@ -1,4 +1,4 @@
-package de.telran.SpringTechnologyBankApp.entities.authentication;
+package de.telran.SpringTechnologyBankApp.entities.usersapp;
 
 import de.telran.SpringTechnologyBankApp.entities.enums.RoleType;
 import jakarta.persistence.*;

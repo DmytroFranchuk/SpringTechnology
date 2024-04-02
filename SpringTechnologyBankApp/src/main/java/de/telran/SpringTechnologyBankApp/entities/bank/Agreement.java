@@ -1,5 +1,6 @@
 package de.telran.SpringTechnologyBankApp.entities.bank;
 
+import de.telran.SpringTechnologyBankApp.entities.enums.CurrencyCode;
 import de.telran.SpringTechnologyBankApp.entities.enums.StatusType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,6 +29,10 @@ public class Agreement {
 
     @Column(name = "sum_value")
     private BigDecimal sum;
+
+    @Column(name = "curr_code")
+    @Enumerated(EnumType.STRING)
+    private CurrencyCode currencyCode;
 
     @Column(name = "status_type")
     @Enumerated(EnumType.STRING)

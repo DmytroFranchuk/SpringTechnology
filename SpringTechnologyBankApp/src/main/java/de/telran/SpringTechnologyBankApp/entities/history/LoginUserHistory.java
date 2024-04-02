@@ -1,5 +1,6 @@
-package de.telran.SpringTechnologyBankApp.entities.authentication;
+package de.telran.SpringTechnologyBankApp.entities.history;
 
+import de.telran.SpringTechnologyBankApp.entities.usersapp.UserApplication;
 import de.telran.SpringTechnologyBankApp.entities.enums.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,6 +35,9 @@ public class LoginUserHistory {
 
     @Column(name = "session_token")
     private String sessionToken;
+
+    @Column(name = "session_expiry")
+    private int sessionExpiry;
 
     @Column(name = "role_type")
     @Enumerated(EnumType.STRING)

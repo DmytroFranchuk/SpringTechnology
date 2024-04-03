@@ -1,7 +1,9 @@
 package de.telran.SpringTechnologyBankApp.entities.enums;
 
 public enum RoleType {
-    ROLE_ADMIN,
+    ROLE_ANONYMOUS,
+    ROLE_CLIENT,
     ROLE_MANAGER,
-    ROLE_CLIENT
+    ROLE_ADMIN,
+    ROLE_REGISTRAR
 }

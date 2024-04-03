@@ -37,12 +37,12 @@ public class ControllerWelcome {
     public String getEchoInfo(@NotNull HttpServletRequest request) {
 
         boolean checkPassword1 = checkPassword(
-                "1212",
-                "$2a$10$cs0f0w748.vyBxl8agJcre1DZ2jgkJmA8Cc7YD7FRjUiG9DxXX4Ka"
+                "1111",
+                "$2a$10$STSRftoUAwfWwAzWcRpc7.6VJNjwyka7N68Zq2YQlSopwyTG7/5h6"
         );
         boolean checkPassword2 = checkPassword(
-                "1212",
-                "$2a$10$zd8HWgtHUG6cBVokUYjse.qRkxx6qrJxhcWxRWWUr1Htr5SwgpiZ2"
+                "Admin",
+                "$2a$10$BqXHiJSBehd1rgydH.oR9ep6ErMnv2Ymb0oDtC4deY6U/10m58.1y"
         );
         boolean checkPassword3 = checkPassword(
                 "1212",
@@ -54,6 +54,7 @@ public class ControllerWelcome {
         String sessionId = request.getSession().getId();
         String postmanToken = request.getHeader("Postman-Token");
         String localAddr = request.getLocalAddr();
+        String host = request.getHeader("Host");
 
         long creationTime = request.getSession().getCreationTime();
         long accessedTime = request.getSession().getLastAccessedTime();
@@ -71,6 +72,7 @@ public class ControllerWelcome {
         responseJson.put("Check-Password admin", checkPassword1);
         responseJson.put("Check-Password manager", checkPassword2);
         responseJson.put("Check-Password client", checkPassword3);
+        responseJson.put("Host", host);
         return responseJson.toString();
     }
 }

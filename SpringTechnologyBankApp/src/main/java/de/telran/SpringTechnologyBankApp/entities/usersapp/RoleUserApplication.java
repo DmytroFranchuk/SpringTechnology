@@ -1,17 +1,20 @@
 package de.telran.SpringTechnologyBankApp.entities.usersapp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.telran.SpringTechnologyBankApp.entities.enums.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"roleType", "users"})
-@ToString(of = {"roleType", "users"})
+@EqualsAndHashCode(of = {"roleType"})
+@ToString(of = {"roleType"})
 @Entity
 @Table(name = "roles")
 public class RoleUserApplication {
@@ -24,16 +27,17 @@ public class RoleUserApplication {
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
-    private Set<UserApplication> users;
+    @ManyToMany(mappedBy = "roles")
+    private Set<UserApplication> users = new HashSet<>();
 
-    public void addUserApplication(UserApplication userApplication) {
-        users.add(userApplication);
-        userApplication.getRoles().add(this);
-    }
+//    public void addUserApplication(UserApplication userApplication) {
+//        if (users.add(userApplication)) {
+//            userApplication.getRoles().add(this);
+//        }
+//    }
 
-    public void removeUserApplication(UserApplication userApplication) {
-        users.remove(userApplication);
-        userApplication.getRoles().remove(this);
-    }
+//    public void removeUserApplication(UserApplication userApplication) {
+//        users.remove(userApplication);
+//        userApplication.getRoles().remove(this);
+//    }
 }

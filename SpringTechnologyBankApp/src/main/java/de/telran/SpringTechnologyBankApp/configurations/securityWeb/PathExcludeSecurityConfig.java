@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -43,11 +44,15 @@ public class PathExcludeSecurityConfig {
     public SecurityFilterChain configureExcludePath(@NotNull HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .httpBasic(httpBasic -> {})
+//                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/login*", "/logout*").permitAll()
                         .requestMatchers(HttpMethod.GET, "/hello").permitAll()
                         .requestMatchers(HttpMethod.GET, "/echo").hasAnyRole("MANAGER", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/test").hasRole("CLIENT")
+                        .requestMatchers(HttpMethod.POST, "/registration/*").hasRole("REGISTRAR")
                         .anyRequest().authenticated()
                 );
         return httpSecurity.build();

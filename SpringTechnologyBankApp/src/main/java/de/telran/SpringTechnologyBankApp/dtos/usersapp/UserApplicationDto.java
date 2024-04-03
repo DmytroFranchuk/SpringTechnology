@@ -1,5 +1,6 @@
 package de.telran.SpringTechnologyBankApp.dtos.usersapp;
 
+import de.telran.SpringTechnologyBankApp.entities.enums.RoleType;
 import lombok.*;
 
 @Getter
@@ -10,11 +11,11 @@ import lombok.*;
 @ToString(of = {"login", "password"})
 public class UserApplicationDto {
 
-//    private Long id;
-
     private String login;
 
     private String password;
+
+    private RoleType role;
 
     private String sessionToken;
 

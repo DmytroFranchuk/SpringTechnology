@@ -19,8 +19,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -29,15 +28,16 @@ public class UserApplicationServiceImpl implements UserApplicationService {
     private final UserApplicationRepository userApplicationRepository;
     private final RoleUserApplicationRepository roleUserApplicationRepository;
 
-    public void saveUser(UserApplicationDto userAppDto) {
-        if (userAppDto.getLogin() == null || userAppDto.getPassword() == null) {
-            throw new IllegalArgumentException("Login and password must be provided");
-        }
+    @Override
+    public void addUser(UserApplicationDto userAppDto) {
         Optional<UserApplication> existingUser = userApplicationRepository.findByLogin(userAppDto.getLogin());
         if (existingUser.isPresent()) {
             throw new IllegalArgumentException("User with this login already exists");
         }
         UserApplication newUser = new UserApplication();
+        Optional<RoleUserApplication> optionalRole = roleUserApplicationRepository
+                .findByRoleType(userAppDto.getRole());
+        optionalRole.ifPresent(role -> newUser.getRoles().add(role));
         newUser.setLogin(userAppDto.getLogin());
         newUser.setPassword(userAppDto.getPassword());
         newUser.setSessionToken(userAppDto.getSessionToken());
@@ -45,61 +45,27 @@ public class UserApplicationServiceImpl implements UserApplicationService {
         userApplicationRepository.save(newUser);
     }
 
-    public void saveRole(RoleUserApplicationDto roleDto) {
-        if (roleDto.getRoleType() == null) {
-            throw new IllegalArgumentException("Role type must be provided");
-        }
-        if (!isValidRoleType(roleDto.getRoleType())) {
-            throw new IllegalArgumentException("Invalid role type");
-        }
-        Optional<RoleUserApplication> existingRole = roleUserApplicationRepository.findByRoleType(roleDto.getRoleType());
-        if (existingRole.isPresent()) {
-            throw  new IllegalArgumentException("Role with this type already exists");
-        }
-        RoleUserApplication newRole = new RoleUserApplication();
-        newRole.setRoleType(roleDto.getRoleType());
-        roleUserApplicationRepository.save(newRole);
+    @Override
+    public void addAllRoles(List<RoleUserApplication> roles) {
+        roleUserApplicationRepository.saveAll(roles);
     }
 
-    private boolean isValidRoleType(RoleType roleType) {
-        for (RoleType validRole : RoleType.values()) {
-            if (validRole.equals(roleType)) {
-                return true;
+    @Override
+    public boolean hasAnyRole() {
+        return roleUserApplicationRepository.count() > 0;
+    }
+
+    public void initializeRoles() {
+        if (!hasAnyRole()) {
+            List<RoleUserApplication> allRoles = new ArrayList<>();
+            for (RoleType roleType : RoleType.values()) {
+                RoleUserApplication role = new RoleUserApplication();
+                role.setRoleType(roleType);
+                allRoles.add(role);
             }
+            addAllRoles(allRoles);
         }
-        return false;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //    @Override

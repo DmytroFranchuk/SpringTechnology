@@ -1,6 +1,6 @@
 package de.telran.SpringTechnologyBankApp.services.bank.interf;
 
-import de.telran.SpringTechnologyBankApp.dtos.bank.ManagerDto;
+import de.telran.SpringTechnologyBankApp.dtos.bank.manager.ManagerDto;
 import de.telran.SpringTechnologyBankApp.entities.enums.StatusType;
 
 import java.time.LocalDateTime;

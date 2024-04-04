@@ -1,4 +1,4 @@
-package de.telran.SpringTechnologyBankApp.dtos.bank;
+package de.telran.SpringTechnologyBankApp.dtos.bank.transaction;
 
 import de.telran.SpringTechnologyBankApp.entities.enums.CurrencyCode;
 import de.telran.SpringTechnologyBankApp.entities.enums.TransactionType;

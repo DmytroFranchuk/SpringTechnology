@@ -1,4 +1,4 @@
-package de.telran.SpringTechnologyBankApp.dtos.bank;
+package de.telran.SpringTechnologyBankApp.dtos.bank.client;
 
 import de.telran.SpringTechnologyBankApp.entities.enums.RoleType;
 import de.telran.SpringTechnologyBankApp.entities.enums.StatusType;
@@ -10,16 +10,19 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(of = {"firstName", "lastName", "description"})
-@EqualsAndHashCode(of = {"firstName", "lastName", "statusType"})
-public class ManagerDto {
+@EqualsAndHashCode(of = {"taxNumber", "firstName", "phone"})
+@ToString(of = {"firstName", "lastName"})
+public class ClientDto {
     private Long id;
+    private String taxNumber;
     private String firstName;
     private String lastName;
+    private String password;
     private String email;
-    private String description;
+    private String address;
+    private String phone;
     private StatusType statusType;
-    private RoleType roleType;
+    private RoleType roleType = RoleType.ROLE_CLIENT;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

@@ -7,11 +7,8 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"roleType", "id"})
-@ToString(of = {"roleType", "id"})
+@EqualsAndHashCode(of = {"roleType"})
+@ToString(of = {"roleType"})
 public class RoleUserApplicationDto {
-
-    private Long id;
-
     private RoleType roleType;
 }

@@ -10,25 +10,19 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(of = {"loginTime", "userId", "ipAddress"})
-@EqualsAndHashCode(of = {"loginTime", "userId", "ipAddress"})
+@ToString(of = {"loginTime", "ipAddress"})
+@EqualsAndHashCode(of = {"loginTime", "ipAddress"})
 public class LoginUserHistoryDto {
 
-    private Long id;
+//    private Long id;
 
     private String userId;
-
     private LocalDateTime loginTime;
-
     private LocalDateTime logoutTime;
-
     private String ipAddress;
-
     private String sessionToken;
-
     private int sessionExpiry;
-
     private RoleType roleType;
 
-    private UserApplicationDto userApplication;
+//    private UserApplicationDto userApplication;
 }

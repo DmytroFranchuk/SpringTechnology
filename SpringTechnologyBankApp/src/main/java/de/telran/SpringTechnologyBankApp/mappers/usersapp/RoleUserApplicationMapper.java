@@ -7,6 +7,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface RoleUserApplicationMapper {
+
     RoleUserApplicationDto RoleUserApplicationToDto(RoleUserApplication entity);
 
     @Mapping(target = "users", ignore = true)

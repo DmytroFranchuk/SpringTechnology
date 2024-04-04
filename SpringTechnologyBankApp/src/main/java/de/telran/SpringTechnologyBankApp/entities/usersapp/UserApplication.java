@@ -14,8 +14,8 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"sessionToken", "sessionExpiryMinutes"})
-@ToString(of = {"sessionToken", "sessionExpiryMinutes"})
+@EqualsAndHashCode(of = {"login", "sessionToken"})
+@ToString(of = {"login", "sessionToken"})
 @Entity
 @Table(name = "users_app")
 public class UserApplication {
@@ -43,6 +43,22 @@ public class UserApplication {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleUserApplication> roles = new HashSet<>();
 
+    @OneToMany(
+            mappedBy = "userApplication",
+            cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH},
+            orphanRemoval = true
+    )
+    private Set<LoginUserHistory> userHistories = new HashSet<>();
+
+
+
+
+
+
+
+
+
+
 //    public void addRoleUserApplication(RoleUserApplication role) {
 //        if (roles.add(role)) {
 //            role.getUsers().add(this);
@@ -54,20 +70,18 @@ public class UserApplication {
 //        role.getUsers().remove(this);
 //    }
 
-    @OneToMany(
-            mappedBy = "userApplication",
-            cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH},
-            orphanRemoval = true
-    )
-    private Set<LoginUserHistory> userHistories = new HashSet<>();
 
-    public void addClient(LoginUserHistory userHistory) {
-        userHistories.add(userHistory);
-        userHistory.setUserApplication(this);
-    }
 
-    public void removeClient(LoginUserHistory userHistory) {
-        userHistories.remove(userHistory);
-        userHistory.setUserApplication(null);
-    }
+
+
+
+//    public void addClient(LoginUserHistory userHistory) {
+//        userHistories.add(userHistory);
+//        userHistory.setUserApplication(this);
+//    }
+//
+//    public void removeClient(LoginUserHistory userHistory) {
+//        userHistories.remove(userHistory);
+//        userHistory.setUserApplication(null);
+//    }
 }

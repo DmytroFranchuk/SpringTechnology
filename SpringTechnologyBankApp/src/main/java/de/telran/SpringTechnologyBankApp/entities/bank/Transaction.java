@@ -31,9 +31,11 @@ public class Transaction {
     private String description;
 
     @Column(name = "curr_code")
+    @Enumerated(EnumType.STRING)
     private CurrencyCode currencyCode;
 
     @Column(name = "trans_type")
+    @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
 
     @Column(name = "created_at", nullable = false, updatable = false)

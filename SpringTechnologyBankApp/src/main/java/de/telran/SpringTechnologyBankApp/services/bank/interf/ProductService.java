@@ -1,6 +1,6 @@
 package de.telran.SpringTechnologyBankApp.services.bank.interf;
 
-import de.telran.SpringTechnologyBankApp.dtos.bank.ProductDto;
+import de.telran.SpringTechnologyBankApp.dtos.bank.product.ProductDto;
 import de.telran.SpringTechnologyBankApp.entities.enums.CurrencyCode;
 import de.telran.SpringTechnologyBankApp.entities.enums.ProductType;
 import de.telran.SpringTechnologyBankApp.entities.enums.StatusType;

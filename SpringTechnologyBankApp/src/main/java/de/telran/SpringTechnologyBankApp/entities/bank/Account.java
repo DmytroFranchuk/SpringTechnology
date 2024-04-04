@@ -57,15 +57,15 @@ public class Account {
     )
     private Set<Agreement> agreements = new HashSet<>();
 
-    public void addAgreement(Agreement agreement) {
-        agreements.add(agreement);
-        agreement.getAccounts().add(this);
-    }
-
-    public void removeAgreement(Agreement agreement) {
-        agreements.remove(agreement);
-        agreement.getAccounts().remove(this);
-    }
+//    public void addAgreement(Agreement agreement) {
+//        agreements.add(agreement);
+//        agreement.getAccounts().add(this);
+//    }
+//
+//    public void removeAgreement(Agreement agreement) {
+//        agreements.remove(agreement);
+//        agreement.getAccounts().remove(this);
+//    }
 
     @OneToMany(
             mappedBy = "debitAccount",

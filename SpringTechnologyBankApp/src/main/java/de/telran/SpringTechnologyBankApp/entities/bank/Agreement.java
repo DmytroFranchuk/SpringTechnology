@@ -50,15 +50,15 @@ public class Agreement {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "agreements")
     private Set<Account> accounts = new HashSet<>();
 
-    public void addAccount(Account account) {
-        accounts.add(account);
-        account.getAgreements().add(this);
-    }
-
-    public void removeAccount(Account account) {
-        accounts.remove(account);
-        account.getAgreements().remove(this);
-    }
+//    public void addAccount(Account account) {
+//        accounts.add(account);
+//        account.getAgreements().add(this);
+//    }
+//
+//    public void removeAccount(Account account) {
+//        accounts.remove(account);
+//        account.getAgreements().remove(this);
+//    }
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    private Account account;

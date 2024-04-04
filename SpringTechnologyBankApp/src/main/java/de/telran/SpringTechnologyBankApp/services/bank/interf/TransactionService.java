@@ -1,6 +1,6 @@
 package de.telran.SpringTechnologyBankApp.services.bank.interf;
 
-import de.telran.SpringTechnologyBankApp.dtos.bank.TransactionDto;
+import de.telran.SpringTechnologyBankApp.dtos.bank.transaction.TransactionDto;
 
 import java.math.BigDecimal;
 import java.util.List;

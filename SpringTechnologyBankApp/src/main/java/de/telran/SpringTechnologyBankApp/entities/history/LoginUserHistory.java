@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(of = {"loginTime", "userId", "ipAddress"})
-@EqualsAndHashCode(of = {"loginTime", "userId", "ipAddress"})
+@ToString(of = {"loginTime", "ipAddress"})
+@EqualsAndHashCode(of = {"loginTime", "ipAddress"})
 @Entity
 @Table(name = "users_login_history")
 public class LoginUserHistory {
@@ -21,8 +21,8 @@ public class LoginUserHistory {
     @Column(name = "id", updatable = false, unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "user_login")
+    private String login;
 
     @Column(name = "login_time", nullable = false, updatable = false)
     private LocalDateTime loginTime;

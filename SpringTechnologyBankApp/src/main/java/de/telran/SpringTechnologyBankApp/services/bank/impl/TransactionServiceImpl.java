@@ -1,6 +1,6 @@
 package de.telran.SpringTechnologyBankApp.services.bank.impl;
 
-import de.telran.SpringTechnologyBankApp.dtos.bank.TransactionDto;
+import de.telran.SpringTechnologyBankApp.dtos.bank.transaction.TransactionDto;
 import de.telran.SpringTechnologyBankApp.services.bank.interf.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

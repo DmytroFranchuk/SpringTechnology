@@ -1,6 +1,5 @@
-package de.telran.SpringTechnologyBankApp.dtos.bank;
+package de.telran.SpringTechnologyBankApp.dtos.bank.agreement;
 
-import de.telran.SpringTechnologyBankApp.entities.enums.AccountType;
 import de.telran.SpringTechnologyBankApp.entities.enums.CurrencyCode;
 import de.telran.SpringTechnologyBankApp.entities.enums.StatusType;
 import lombok.*;
@@ -12,15 +11,14 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"name", "balance", "accountType"})
-@ToString(of = {"name", "accountType", "statusAccount"})
-public class AccountDto {
+@EqualsAndHashCode(of = {"interestRate", "statusType", "sum"})
+@ToString(of = {"interestRate", "statusType", "sum"})
+public class AgreementDto {
     private Long id;
-    private String name;
-    private BigDecimal balance;
-    private StatusType statusAccount;
-    private AccountType accountType;
+    private BigDecimal interestRate;
+    private BigDecimal sum;
     private CurrencyCode currencyCode;
+    private StatusType statusType;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

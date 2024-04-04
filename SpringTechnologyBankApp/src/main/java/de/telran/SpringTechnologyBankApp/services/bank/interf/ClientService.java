@@ -1,6 +1,6 @@
 package de.telran.SpringTechnologyBankApp.services.bank.interf;
 
-import de.telran.SpringTechnologyBankApp.dtos.bank.ClientDto;
+import de.telran.SpringTechnologyBankApp.dtos.bank.client.ClientDto;
 import de.telran.SpringTechnologyBankApp.entities.enums.StatusType;
 
 import java.math.BigDecimal;

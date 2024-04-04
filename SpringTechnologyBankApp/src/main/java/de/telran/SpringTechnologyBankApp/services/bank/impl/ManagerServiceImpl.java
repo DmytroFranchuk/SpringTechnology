@@ -1,6 +1,6 @@
 package de.telran.SpringTechnologyBankApp.services.bank.impl;
 
-import de.telran.SpringTechnologyBankApp.dtos.bank.ManagerDto;
+import de.telran.SpringTechnologyBankApp.dtos.bank.manager.ManagerDto;
 import de.telran.SpringTechnologyBankApp.entities.enums.StatusType;
 import de.telran.SpringTechnologyBankApp.services.bank.interf.ManagerService;
 import lombok.RequiredArgsConstructor;

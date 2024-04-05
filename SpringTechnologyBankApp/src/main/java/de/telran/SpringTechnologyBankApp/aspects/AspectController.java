@@ -14,13 +14,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Component
 public class AspectController {
 
-    @Before("execution(* de.telran.SpringTechnologyBankApp.controllers..*(..))")
-    public void beforeControllerMethodExecution(JoinPoint joinPoint) {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
-                .currentRequestAttributes()).getRequest();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        System.out.println("Path: " + request.getRequestURI());
-        System.out.println("Username: " + authentication.getPrincipal());
-    }
+//    @Before("execution(* de.telran.SpringTechnologyBankApp.controllers..*(..))")
+//    public void beforeControllerMethodExecution(JoinPoint joinPoint) {
+//        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
+//                .currentRequestAttributes()).getRequest();
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//
+//        System.out.println("Path: " + request.getRequestURI());
+//        System.out.println("Username: " + authentication.getPrincipal());
+//    }
 }

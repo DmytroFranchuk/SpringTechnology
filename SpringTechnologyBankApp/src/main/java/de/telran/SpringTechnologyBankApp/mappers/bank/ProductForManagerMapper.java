@@ -20,7 +20,7 @@ public interface ProductForManagerMapper {
 
     ProductForManagerMapper INSTANCE = Mappers.getMapper(ProductForManagerMapper.class);
 
-    @Named("mapToProducts")
+//    @Named("mapToProducts")
     ProductForManagerDto productToProductForManagerDto(Product product);
 
 //    @Named("sortProductsById")

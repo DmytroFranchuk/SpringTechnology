@@ -4,6 +4,7 @@ import de.telran.SpringTechnologyBankApp.entities.enums.*;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -18,6 +19,7 @@ import java.util.Set;
 @EqualsAndHashCode(of = {"firstName", "lastName", "statusType"})
 @Entity
 @Table(name = "managers")
+@DynamicUpdate
 public class Manager {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

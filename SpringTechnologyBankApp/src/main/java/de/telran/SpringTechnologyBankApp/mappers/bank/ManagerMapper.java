@@ -2,21 +2,18 @@ package de.telran.SpringTechnologyBankApp.mappers.bank;
 
 import de.telran.SpringTechnologyBankApp.dtos.bank.manager.ClientForManagerDto;
 import de.telran.SpringTechnologyBankApp.dtos.bank.manager.ManagerDto;
+import de.telran.SpringTechnologyBankApp.dtos.bank.manager.ManagerDtoForByCondition;
 import de.telran.SpringTechnologyBankApp.dtos.bank.manager.ProductForManagerDto;
 import de.telran.SpringTechnologyBankApp.entities.bank.Client;
 import de.telran.SpringTechnologyBankApp.entities.bank.Manager;
 import de.telran.SpringTechnologyBankApp.entities.bank.Product;
-import lombok.RequiredArgsConstructor;
-import org.mapstruct.*;
+import org.jetbrains.annotations.NotNull;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -30,14 +27,27 @@ public interface ManagerMapper {
 
     ManagerMapper INSTANCE = Mappers.getMapper(ManagerMapper.class);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "roleType", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "products", ignore = true)
+    @Mapping(target = "clients", ignore = true)
     Manager managerDtoToManager(ManagerDto managerDto);
 
     @Mapping(target = "products", qualifiedByName = "mapToProducts")
     @Mapping(target = "clients", qualifiedByName = "mapToClients")
+    @Mapping(target = "login", expression = "java(\"*******\")")
+    @Mapping(target = "password", expression = "java(\"*******\")")
+    @Mapping(target = "roleType", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     ManagerDto managerToManagerDto(Manager manager);
 
+    ManagerDtoForByCondition managerToManagerDtoWithoutCollections(Manager manager);
+
     @Named("mapToProducts")
-    default List<ProductForManagerDto> mapProducts(Set<Product> products) {
+    default List<ProductForManagerDto> mapProducts(@NotNull Set<Product> products) {
         return products.stream()
                 .map(ProductForManagerMapper.INSTANCE::productToProductForManagerDto)
                 .sorted(Comparator.comparing(ProductForManagerDto::getId))
@@ -45,7 +55,7 @@ public interface ManagerMapper {
     }
 
     @Named("mapToClients")
-    default List<ClientForManagerDto> mapClients(Set<Client> clients) {
+    default List<ClientForManagerDto> mapClients(@NotNull Set<Client> clients) {
         return clients.stream()
                 .map(ClientForManagerMapper.INSTANCE::clientToClientForManagerDto)
                 .sorted(Comparator.comparing(ClientForManagerDto::getId))

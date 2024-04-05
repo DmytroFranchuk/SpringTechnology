@@ -15,7 +15,7 @@ import java.util.Comparator;
 public interface ClientForManagerMapper {
     ClientForManagerMapper INSTANCE = Mappers.getMapper(ClientForManagerMapper.class);
 
-    @Named("mapToClients")
+//    @Named("mapToClients")
     ClientForManagerDto clientToClientForManagerDto(Client client);
 
 //    @Named("sortClientsById")

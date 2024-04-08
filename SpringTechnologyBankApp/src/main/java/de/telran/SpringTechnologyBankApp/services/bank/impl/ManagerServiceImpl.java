@@ -7,7 +7,10 @@ import de.telran.SpringTechnologyBankApp.entities.bank.Manager;
 import de.telran.SpringTechnologyBankApp.entities.bank.Product;
 import de.telran.SpringTechnologyBankApp.entities.enums.RoleType;
 import de.telran.SpringTechnologyBankApp.entities.enums.StatusType;
-import de.telran.SpringTechnologyBankApp.exceptions.*;
+import de.telran.SpringTechnologyBankApp.exceptions.NotCreationEntityException;
+import de.telran.SpringTechnologyBankApp.exceptions.NotDeletionEntityException;
+import de.telran.SpringTechnologyBankApp.exceptions.NotFoundEntityException;
+import de.telran.SpringTechnologyBankApp.exceptions.NotUpdatedEntityException;
 import de.telran.SpringTechnologyBankApp.mappers.bank.ManagerMapper;
 import de.telran.SpringTechnologyBankApp.repositories.bank.ClientRepository;
 import de.telran.SpringTechnologyBankApp.repositories.bank.ManagerRepository;
@@ -20,8 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
+import static de.telran.SpringTechnologyBankApp.services.utilities.Utils.updateFieldIfNotNull;
 
 @Service
 @RequiredArgsConstructor
@@ -105,12 +109,6 @@ public class ManagerServiceImpl implements ManagerService {
         return managers.stream()
                 .map(managerMapper::managerToManagerDtoWithoutCollections)
                 .collect(Collectors.toList());
-    }
-
-    private <T> void updateFieldIfNotNull(T newValue, Consumer<T> setter) {
-        if (newValue != null) {
-            setter.accept(newValue);
-        }
     }
 
     private Manager createTransitManager() {

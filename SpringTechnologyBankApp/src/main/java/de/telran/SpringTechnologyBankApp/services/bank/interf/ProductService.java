@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
-    ProductDto createProduct(ProductDto product);
+    ProductDto createProduct(ProductDto productDto);
 
-    Optional<ProductDto> getProductById(Long id);
+    ProductDto getProductById(Long id);
 
     ProductDto updateProductById(Long id, ProductDto product);
 

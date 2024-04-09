@@ -3,6 +3,8 @@ package de.telran.SpringTechnologyBankApp.entities.bank;
 import de.telran.SpringTechnologyBankApp.entities.enums.*;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -54,9 +56,11 @@ public class Client {
     private RoleType roleType = RoleType.ROLE_CLIENT;
 
     @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)

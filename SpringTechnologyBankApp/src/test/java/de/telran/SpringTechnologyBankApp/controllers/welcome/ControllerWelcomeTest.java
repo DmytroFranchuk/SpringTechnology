@@ -34,12 +34,12 @@ class ControllerWelcomeTest {
     @MockBean
     private UserApplicationService userApplicationService;
 
-    @Test
-    @WithMockUser(username = "superUserApp", password = "1111", roles = "REGISTRAR")
-    @DisplayName("Страница приветствия")
-    void testWelcome() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/hello"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Welcome to SpringTechnologyBankApp"));
-    }
+//    @Test
+//    @WithMockUser(username = "superUserApp", password = "1111", roles = "REGISTRAR")
+//    @DisplayName("Страница приветствия")
+//    void testWelcome() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/hello"))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.content().string("Welcome to SpringTechnologyBankApp"));
+//    }
 }

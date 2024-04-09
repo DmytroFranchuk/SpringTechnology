@@ -136,33 +136,3 @@ public interface ManagerMapper {
 //    }
 
 //    @IterableMapping(qualifiedByName = "mapToProducts")
-
-//@Mapping(target = "clients", expression = "java(null)")
-//@Mapping(target = "products", expression = "java(null)")
-
-
-//    @Mapping(target = "id", ignore = true)
-//    @Mapping(target = "roleType", ignore = true)
-//    @Mapping(target = "createdAt", ignore = true)
-//    @Mapping(target = "updatedAt", ignore = true)
-//    @Mapping(target = "clients", ignore = true)
-//    @Mapping(target = "products", ignore = true)
-
-
-//    @Mapping(target = "login", ignore = true)
-//    @Mapping(target = "password", ignore = true)
-
-
-//    @Mapping(target = "id", source ="id")
-//    @Mapping(target = "firstName", source ="")
-//    @Mapping(target = "lastName", source ="")
-//    @Mapping(target = "login", source ="")
-//    @Mapping(target = "password", source ="")
-//    @Mapping(target = "email", source ="")
-//    @Mapping(target = "description", source ="")
-//    @Mapping(target = "statusType", source ="")
-//    @Mapping(target = "roleType", source ="")
-//    @Mapping(target = "createdAt", source ="")
-//    @Mapping(target = "updatedAt", source ="")
-//    @Mapping(target = "clients", source ="")
-//    @Mapping(target = "products", source ="")

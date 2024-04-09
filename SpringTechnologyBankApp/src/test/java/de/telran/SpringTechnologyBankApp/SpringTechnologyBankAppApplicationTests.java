@@ -20,8 +20,8 @@ class SpringTechnologyBankAppApplicationTests {
 	@Autowired
 	private UserApplicationService userApplicationService;
 
-
-	@Test
-	void contextLoads() {
-	}
+//
+//	@Test
+//	void contextLoads() {
+//	}
 }

@@ -4,6 +4,8 @@ import de.telran.SpringTechnologyBankApp.entities.enums.CurrencyCode;
 import de.telran.SpringTechnologyBankApp.entities.enums.StatusType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -39,9 +41,11 @@ public class Agreement {
     private StatusType statusType;
 
     @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)

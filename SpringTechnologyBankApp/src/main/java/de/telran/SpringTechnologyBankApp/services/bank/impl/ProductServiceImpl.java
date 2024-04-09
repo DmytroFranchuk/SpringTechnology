@@ -1,12 +1,10 @@
 package de.telran.SpringTechnologyBankApp.services.bank.impl;
 
 import de.telran.SpringTechnologyBankApp.dtos.bank.product.ProductDto;
-import de.telran.SpringTechnologyBankApp.entities.bank.Manager;
 import de.telran.SpringTechnologyBankApp.entities.bank.Product;
 import de.telran.SpringTechnologyBankApp.entities.enums.CurrencyCode;
 import de.telran.SpringTechnologyBankApp.entities.enums.ProductType;
 import de.telran.SpringTechnologyBankApp.entities.enums.StatusType;
-import de.telran.SpringTechnologyBankApp.exceptions.NotCreationEntityException;
 import de.telran.SpringTechnologyBankApp.exceptions.NotFoundEntityException;
 import de.telran.SpringTechnologyBankApp.exceptions.NotUpdatedEntityException;
 import de.telran.SpringTechnologyBankApp.mappers.bank.ProductMapper;
@@ -15,24 +13,25 @@ import de.telran.SpringTechnologyBankApp.repositories.bank.ManagerRepository;
 import de.telran.SpringTechnologyBankApp.repositories.bank.ProductRepository;
 import de.telran.SpringTechnologyBankApp.services.bank.interf.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static de.telran.SpringTechnologyBankApp.services.utilities.Utils.updateFieldIfNotNull;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProductServiceImpl implements ProductService {
+    //    private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
     private final ProductRepository productRepository;
     private final AgreementRepository agreementRepository;
     private final ManagerRepository managerRepository;
@@ -42,11 +41,22 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ProductDto createProduct(ProductDto productDto) {
-        return Optional.of(productDto)
-                .map(productMapper::productDtoToProduct)
-                .map(productRepository::save)
-                .map(productMapper::productToProductDto)
-                .orElseThrow(() -> new NotCreationEntityException("Не удалось создать продукт"));
+        try {
+//            return Optional.of(productDto)
+//                    .map(productMapper::productDtoToProduct)
+//                    .map(productRepository::save)
+//                    .map(productMapper::productToProductDto)
+//                    .orElseThrow(() -> new NotCreationEntityException("Не удалось создать продукт"));
+            Product product = productMapper.productDtoToProduct(productDto);
+            Product savedProduct = productRepository.save(product);
+            return productMapper.productToProductDto(savedProduct);
+        } catch (DataIntegrityViolationException exception) {
+            String errorMessage = exception.getMessage();
+            throw new DataIntegrityViolationException(errorMessage);
+        } catch (Exception exception) {
+            log.error("Не удалось создать продукт", exception);
+            throw new RuntimeException("Не удалось создать продукт", exception);
+        }
     }
 
     @Override
@@ -59,12 +69,8 @@ public class ProductServiceImpl implements ProductService {
     public ProductDto updateProductById(Long id, ProductDto product) {
         Product existingProduct = productRepository.findById(id)
                 .orElseThrow(() -> new NotFoundEntityException("Продукт с id: " + id + " не найден"));
-        updateFieldIfNotNull(product.getName(), existingProduct::setName);
-        updateFieldIfNotNull(product.getStatusType(), existingProduct::setStatusType);
-        updateFieldIfNotNull(product.getProductType(), existingProduct::setProductType);
-        updateFieldIfNotNull(product.getCurrencyCode(), existingProduct::setCurrencyCode);
-        updateFieldIfNotNull(product.getInterestRate(), existingProduct::setInterestRate);
-        updateFieldIfNotNull(product.getLimitSum(), existingProduct::setLimitSum);
+        updateProductFields(product, existingProduct);
+        // проверить есть ли в базе с таким номером менеджер
         existingProduct.setManager(managerRepository.getReferenceById(product.getManagerId()));
         try {
             Product updatedProduct = productRepository.save(existingProduct);
@@ -96,5 +102,14 @@ public class ProductServiceImpl implements ProductService {
         return products.stream()
                 .map(productMapper::productToProductDto)
                 .collect(Collectors.toList());
+    }
+
+    private void updateProductFields(ProductDto productDto, Product existingProduct) {
+        updateFieldIfNotNull(productDto.getInterestRate(), existingProduct::setInterestRate);
+        updateFieldIfNotNull(productDto.getCurrencyCode(), existingProduct::setCurrencyCode);
+        updateFieldIfNotNull(productDto.getProductType(), existingProduct::setProductType);
+        updateFieldIfNotNull(productDto.getStatusType(), existingProduct::setStatusType);
+        updateFieldIfNotNull(productDto.getLimitSum(), existingProduct::setLimitSum);
+        updateFieldIfNotNull(productDto.getName(), existingProduct::setName);
     }
 }

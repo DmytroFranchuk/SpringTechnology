@@ -3,6 +3,7 @@ package de.telran.SpringTechnologyBankApp.entities.bank;
 import de.telran.SpringTechnologyBankApp.entities.enums.*;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -39,6 +40,7 @@ public class Transaction {
     private TransactionType transactionType;
 
     @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -52,15 +52,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorData, HttpStatus.NOT_FOUND);
     }
 
-
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<ErrorResponseDto> handleConstraintViolationException(@NotNull ConstraintViolationException exception) {
-        ErrorResponseDto errorData = new ErrorResponseDto(exception.getMessage(), HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(errorData, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ErrorResponseDto> handleHttpMessageNotReadableException(@NotNull HttpMessageNotReadableException exception) {
+    @ExceptionHandler(NotExistEntityException.class)
+    public ResponseEntity<ErrorResponseDto> handleNotExistEntityException(@NotNull NotExistEntityException exception) {
         ErrorResponseDto errorData = new ErrorResponseDto(exception.getMessage(), HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(errorData, HttpStatus.NOT_FOUND);
     }
@@ -78,6 +71,18 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorData, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorResponseDto> handleConstraintViolationException(@NotNull ConstraintViolationException exception) {
+        ErrorResponseDto errorData = new ErrorResponseDto(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorData, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponseDto> handleHttpMessageNotReadableException(@NotNull HttpMessageNotReadableException exception) {
+        ErrorResponseDto errorData = new ErrorResponseDto(exception.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorData, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleValidationExceptions(@NotNull MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -87,13 +92,11 @@ public class GlobalExceptionHandler {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
-}
 
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ResponseEntity<ErrorResponseDto> handleMethodArgumentNotValidException(@NotNull MethodArgumentNotValidException exception) {
-//        BindingResult result = exception.getBindingResult();
-//        FieldError error = result.getFieldError();
-//        String errorMessage = error != null ? error.getDefaultMessage() : "Validation error";
-//        ErrorResponseDto errorData = new ErrorResponseDto(errorMessage, HttpStatus.BAD_REQUEST);
-//        return new ResponseEntity<>(errorData, HttpStatus.BAD_REQUEST);
-//    }
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponseDto> handleIllegalArgumentException(@NotNull IllegalArgumentException exception) {
+        String invalidString = exception.getLocalizedMessage();
+        ErrorResponseDto errorData = new ErrorResponseDto(invalidString, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorData, HttpStatus.BAD_REQUEST);
+    }
+}

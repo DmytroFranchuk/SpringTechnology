@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
 
 import static de.telran.SpringTechnologyBankApp.services.utilities.Utils.updateFieldIfNotNull;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class ClientServiceImpl implements ClientService {
 
     private final ManagerRepository managerRepository;

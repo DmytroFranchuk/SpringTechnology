@@ -1,15 +1,17 @@
 package de.telran.SpringTechnologyBankApp.services.bank.interf;
 
 import de.telran.SpringTechnologyBankApp.dtos.bank.agreement.AgreementDto;
+import de.telran.SpringTechnologyBankApp.entities.bank.Agreement;
+import de.telran.SpringTechnologyBankApp.entities.enums.ProductType;
 import de.telran.SpringTechnologyBankApp.entities.enums.StatusType;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface AgreementService {
     AgreementDto createAgreement(AgreementDto agreement);
 
-    Optional<AgreementDto> getAgreementById(Long id);
+    AgreementDto getAgreementById(Long id);
 
     AgreementDto updateAgreementById(Long id, AgreementDto agreement);
 
@@ -17,5 +19,5 @@ public interface AgreementService {
 
     List<AgreementDto> getAllAgreementsWhereStatusTypeIs(StatusType status);
 
-    List<AgreementDto> findAgreementsWhereClientIdIs(Long clientId);
+    List<AgreementDto> findAgreementsByProductType(ProductType productType);
 }

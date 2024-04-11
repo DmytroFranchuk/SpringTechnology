@@ -33,15 +33,17 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClientDto> updateClientById(@Valid
-                                                      @PathVariable("id") Long id, @RequestBody ClientDto clientDto) {
+    public ResponseEntity<ClientDto> updateClientById(
+            @Valid
+            @PathVariable("id") Long id, @RequestBody ClientDto clientDto) {
         ClientDto updatedClient = clientService.updateClientById(id, clientDto);
         return ResponseEntity.ok(updatedClient);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ClientDto> updateClientByIdPatch(@Valid
-                                                           @PathVariable("id") Long id, @RequestBody ClientDto clientDto) {
+    public ResponseEntity<ClientDto> updateClientByIdPatch(
+            @Valid
+            @PathVariable("id") Long id, @RequestBody ClientDto clientDto) {
         return updateClientById(id, clientDto);
     }
 
@@ -53,16 +55,16 @@ public class ClientController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/with-more")
-    public List<ClientDto> getClientsWithBalanceMoreThan(@Valid
-            @RequestParam("balance") BigDecimal balance) {
-        return clientService.getAllClientsWhereBalanceMoreThan(balance);
-    }
-
     @GetMapping("/status/{status}")
     public ResponseEntity<List<ClientDto>> getAllClientsByStatus(@Valid @PathVariable("status") StatusType status) {
         List<ClientDto> clients = clientService.getAllClientsWhereStatusTypeIs(status);
         return ResponseEntity.ok(clients);
+    }
+
+    @GetMapping("/with-more")
+    public List<ClientDto> getClientsWithBalanceMoreThan(@Valid
+                                                         @RequestParam("balance") BigDecimal balance) {
+        return clientService.getAllClientsWhereBalanceMoreThan(balance);
     }
 
 

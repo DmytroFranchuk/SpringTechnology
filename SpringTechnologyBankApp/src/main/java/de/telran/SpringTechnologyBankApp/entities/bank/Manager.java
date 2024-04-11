@@ -17,9 +17,9 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"firstName", "lastName", "statusType"})
+@DynamicUpdate
 @Entity
 @Table(name = "managers")
-@DynamicUpdate
 public class Manager {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

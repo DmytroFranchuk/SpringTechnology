@@ -6,6 +6,7 @@ import de.telran.SpringTechnologyBankApp.entities.enums.*;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
@@ -19,6 +20,7 @@ import java.util.Set;
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"limitSum", "currencyCode", "interestRate"})
 @ToString(of = {"name", "productType", "interestRate", "limitSum"})
+@DynamicUpdate
 @Entity
 @Table(name = "products")
 public class Product {

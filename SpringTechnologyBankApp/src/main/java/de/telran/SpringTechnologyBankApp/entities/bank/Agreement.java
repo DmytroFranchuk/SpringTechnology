@@ -3,8 +3,10 @@ package de.telran.SpringTechnologyBankApp.entities.bank;
 import de.telran.SpringTechnologyBankApp.entities.enums.CurrencyCode;
 import de.telran.SpringTechnologyBankApp.entities.enums.StatusType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
@@ -18,6 +20,7 @@ import java.util.Set;
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"interestRate", "statusType", "sum"})
 @ToString(of = {"interestRate", "statusType", "sum"})
+@DynamicUpdate
 @Entity
 @Table(name = "agreements")
 public class Agreement {
@@ -54,16 +57,18 @@ public class Agreement {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "agreements")
     private Set<Account> accounts = new HashSet<>();
 
-//    public void addAccount(Account account) {
-//        accounts.add(account);
-//        account.getAgreements().add(this);
-//    }
-//
-//    public void removeAccount(Account account) {
-//        accounts.remove(account);
-//        account.getAgreements().remove(this);
-//    }
+    public void addAccount(Account account) {
+        accounts.add(account);
+        account.getAgreements().add(this);
+    }
 
+    public void removeAccount(Account account) {
+        accounts.remove(account);
+        account.getAgreements().remove(this);
+    }
+
+    // Связь_многие_к_одному (договор-счет)
+    // В_приложении_бизнес-модель_построена_как_многие_ко_многим
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    private Account account;
 }

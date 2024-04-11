@@ -4,6 +4,7 @@ import de.telran.SpringTechnologyBankApp.entities.enums.*;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import java.util.*;
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"taxNumber", "firstName", "phone"})
 @ToString(of = {"firstName", "lastName"})
+@DynamicUpdate
 @Entity
 @Table(name = "clients")
 public class Client {

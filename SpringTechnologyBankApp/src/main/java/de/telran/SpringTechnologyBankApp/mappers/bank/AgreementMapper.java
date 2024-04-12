@@ -28,4 +28,5 @@ public interface AgreementMapper {
     AgreementDto agreementToAgreementDtoWithoutAccounts(Agreement agreement);
 
     AgreementForProductDto agreementToAgreementForProductDto(Agreement agreement);
+
 }

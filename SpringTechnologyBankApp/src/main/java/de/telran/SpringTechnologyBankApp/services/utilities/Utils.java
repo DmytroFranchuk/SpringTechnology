@@ -1,5 +1,7 @@
 package de.telran.SpringTechnologyBankApp.services.utilities;
 
+import java.util.Collection;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class Utils {

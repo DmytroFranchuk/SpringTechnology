@@ -1,12 +1,10 @@
 package de.telran.SpringTechnologyBankApp.entities.usersapp;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import de.telran.SpringTechnologyBankApp.entities.enums.RoleType;
 import de.telran.SpringTechnologyBankApp.entities.history.LoginUserHistory;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,7 +32,7 @@ public class UserApplication {
     private String sessionToken;
 
     @Column(name = "session_expiry")
-    private int sessionExpiryMinutes;
+    private LocalDateTime sessionExpiry;
 
     @ManyToMany
     @JoinTable(

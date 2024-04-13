@@ -1,6 +1,7 @@
 package de.telran.SpringTechnologyBankApp.services.bank.interf;
 
 import de.telran.SpringTechnologyBankApp.dtos.bank.account.AccountDto;
+import de.telran.SpringTechnologyBankApp.entities.bank.Account;
 import de.telran.SpringTechnologyBankApp.entities.enums.StatusType;
 
 import java.util.List;

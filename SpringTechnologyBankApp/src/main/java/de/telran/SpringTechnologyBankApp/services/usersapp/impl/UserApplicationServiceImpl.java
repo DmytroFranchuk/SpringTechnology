@@ -1,24 +1,24 @@
 package de.telran.SpringTechnologyBankApp.services.usersapp.impl;
 
-import de.telran.SpringTechnologyBankApp.configurations.securityWeb.DefaultUsersConfig;
-import de.telran.SpringTechnologyBankApp.dtos.usersapp.RoleUserApplicationDto;
 import de.telran.SpringTechnologyBankApp.dtos.usersapp.UserApplicationDto;
 import de.telran.SpringTechnologyBankApp.entities.enums.RoleType;
 import de.telran.SpringTechnologyBankApp.entities.usersapp.RoleUserApplication;
 import de.telran.SpringTechnologyBankApp.entities.usersapp.UserApplication;
+import de.telran.SpringTechnologyBankApp.exceptions.NotExistEntityException;
 import de.telran.SpringTechnologyBankApp.repositories.usersapp.RoleUserApplicationRepository;
 import de.telran.SpringTechnologyBankApp.repositories.usersapp.UserApplicationRepository;
 import de.telran.SpringTechnologyBankApp.services.usersapp.interf.UserApplicationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -27,32 +27,47 @@ import java.util.*;
 public class UserApplicationServiceImpl implements UserApplicationService {
     private final UserApplicationRepository userApplicationRepository;
     private final RoleUserApplicationRepository roleUserApplicationRepository;
+    private final PasswordEncoder passwordEncoder;
+
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        UserApplication userApp = userApplicationRepository.findByLogin(username)
+//                .orElseThrow(() -> new UsernameNotFoundException("Нет пользователя по имени: " + username));
+//        return User.builder()
+//                .username(userApp.getLogin())
+//                .password(userApp.getPassword())
+//                .roles(userApp.getRoles().stream().map(role -> role.getRoleType().toString()).toArray(String[]::new))
+//                .build();
+//    }
 
     @Override
     public void addUser(UserApplicationDto userAppDto) {
-        Optional<UserApplication> existingUser = userApplicationRepository.findByLogin(userAppDto.getLogin());
-        if (existingUser.isPresent()) {
-            throw new IllegalArgumentException("User with this login already exists");
+        if (userApplicationRepository.existsByLogin(userAppDto.getLogin())) {
+            throw new NotExistEntityException("Пользователь логином " + userAppDto.getLogin() + " уже существует");
         }
         UserApplication newUser = new UserApplication();
-        Optional<RoleUserApplication> optionalRole = roleUserApplicationRepository
-                .findByRoleType(userAppDto.getRole());
-        optionalRole.ifPresent(role -> newUser.getRoles().add(role));
+        RoleUserApplication role = validateRoleExists(userAppDto.getRole());
+        newUser.getRoles().add(role);
         newUser.setLogin(userAppDto.getLogin());
-        newUser.setPassword(userAppDto.getPassword());
-        newUser.setSessionToken(userAppDto.getSessionToken());
-        newUser.setSessionExpiryMinutes(userAppDto.getSessionExpiryMinutes());
+        newUser.setPassword(passwordEncoder.encode(userAppDto.getPassword()));
+        newUser.setSessionToken(UUID.randomUUID().toString());
+        newUser.setSessionExpiry(LocalDateTime.now().plusDays(1));
         userApplicationRepository.save(newUser);
     }
 
-    @Override
-    public void addAllRoles(List<RoleUserApplication> roles) {
-        roleUserApplicationRepository.saveAll(roles);
+    private RoleUserApplication validateRoleExists(RoleType roleType) {
+        return roleUserApplicationRepository.findByRoleType(roleType)
+                .orElseThrow(() -> new NotExistEntityException("Неверная роль пользователя: " + roleType));
     }
 
     @Override
     public boolean hasAnyRole() {
         return roleUserApplicationRepository.count() > 0;
+    }
+
+    @Override
+    public void addAllRoles(List<RoleUserApplication> roles) {
+        roleUserApplicationRepository.saveAll(roles);
     }
 
     public void initializeRoles() {

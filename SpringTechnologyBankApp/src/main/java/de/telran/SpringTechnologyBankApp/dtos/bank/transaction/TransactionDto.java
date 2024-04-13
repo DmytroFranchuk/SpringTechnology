@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(of = {"amount", "description", "currencyCode"})
 @EqualsAndHashCode(of = {"amount", "currencyCode"})
 public class TransactionDto {
     private Long id;
@@ -21,4 +20,21 @@ public class TransactionDto {
     private CurrencyCode currencyCode;
     private TransactionType transactionType;
     private LocalDateTime createdAt;
+    private Long senderAccountId;
+    private Long recipientAccountId;
+
+    @Override
+    public String toString() {
+        return "\nTransactionDto{" +
+                "id=" + id +
+                ", idempotencyKey='" + idempotencyKey + '\'' +
+                ", amount=" + amount +
+                ", description='" + description + '\'' +
+                ", currencyCode=" + currencyCode +
+                ", transactionType=" + transactionType +
+                ", createdAt=" + createdAt +
+                ", senderAccountId=" + senderAccountId +
+                ", recipientAccountId=" + recipientAccountId +
+                '}';
+    }
 }

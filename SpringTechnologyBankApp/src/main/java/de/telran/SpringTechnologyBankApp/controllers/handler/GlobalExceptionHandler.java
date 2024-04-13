@@ -58,6 +58,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorData, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(NotValidTransactionException.class)
+    public ResponseEntity<ErrorResponseDto> handleNotValidTransactionException(@NotNull NotValidTransactionException exception) {
+        ErrorResponseDto errorData = new ErrorResponseDto(exception.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorData, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorResponseDto> handleDataIntegrityViolationException(@NotNull DataIntegrityViolationException exception) {
         String errorMessage = exception.getLocalizedMessage().replaceAll("\\\"", "");

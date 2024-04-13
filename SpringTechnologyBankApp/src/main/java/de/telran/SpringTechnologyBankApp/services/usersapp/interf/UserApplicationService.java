@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Set;
 
 public interface UserApplicationService
-//        extends
+//        extends UserDetailsService
+
 //        UserDetails,
-//        UserDetailsService
 //        UserDetailsManager,
 //        GrantedAuthority
 {
@@ -23,6 +23,7 @@ public interface UserApplicationService
     void addAllRoles(List<RoleUserApplication> roles);
 
     boolean hasAnyRole();
+
 
 
 

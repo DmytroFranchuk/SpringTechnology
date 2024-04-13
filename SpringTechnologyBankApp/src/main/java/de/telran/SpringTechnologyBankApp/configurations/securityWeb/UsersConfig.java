@@ -1,16 +1,34 @@
 package de.telran.SpringTechnologyBankApp.configurations.securityWeb;
 
+import de.telran.SpringTechnologyBankApp.entities.usersapp.UserApplication;
+import de.telran.SpringTechnologyBankApp.repositories.usersapp.UserApplicationRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
-@EnableWebSecurity
-public class DefaultUsersConfig {
+@RequiredArgsConstructor
+public class UsersConfig
+//        implements UserDetailsService
+{
+//    private final UserApplicationRepository userApplicationRepository;
+
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        UserApplication userApp = userApplicationRepository.findByLogin(username)
+//                .orElseThrow(() -> new UsernameNotFoundException("Нет пользователя по имени: " + username));
+//        return User.builder()
+//                .username(userApp.getLogin())
+//                .password(userApp.getPassword())
+//                .roles(userApp.getRoles().stream().map(role -> role.getRoleType().toString()).toArray(String[]::new))
+//                .build();
+//    }
 
     @Bean
     // 1212

@@ -17,13 +17,12 @@ public class UserApplicationDto {
     private String login;
     private String password;
     private RoleType role;
-    private String sessionToken;
-    private int sessionExpiryMinutes;
 
     @Override
     public String toString() {
         return "\nUserApplicationDto{" +
                 "login='" + login + '\'' +
+                ", password='" + password + '\'' +
                 ", role=" + role +
                 '}';
     }

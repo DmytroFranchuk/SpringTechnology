@@ -1,34 +1,31 @@
 package de.telran.SpringTechnologyBankApp.configurations.securityWeb;
 
+import de.telran.SpringTechnologyBankApp.services.usersapp.interf.UserApplicationService;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
+import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
-import org.springframework.security.web.savedrequest.SavedRequest;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
-public class PathExcludeSecurityConfig {
-
+public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -43,7 +40,8 @@ public class PathExcludeSecurityConfig {
     @Bean
     public SecurityFilterChain configureExcludePath(@NotNull HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .httpBasic(httpBasic -> {})
+                .httpBasic(httpBasic -> {
+                })
 //                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
@@ -59,12 +57,13 @@ public class PathExcludeSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/hello").permitAll()
                         .requestMatchers(HttpMethod.GET, "/echo").hasAnyRole("MANAGER", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/test").hasRole("CLIENT")
-                        .requestMatchers(HttpMethod.POST, "/registration/*").hasRole("REGISTRAR")
+//                        .requestMatchers(HttpMethod.POST, "/api/v1/registration/addUser").hasRole("REGISTRAR")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/registration/addUser").permitAll()
                         .anyRequest().authenticated()
                 );
         return httpSecurity.build();
     }
-
+}
 
 
 //    @Bean
@@ -72,11 +71,11 @@ public class PathExcludeSecurityConfig {
 //        return new CustomAuthenticationSuccessHandler();
 //    }
 
-    //                .headers(headers -> headers.cacheControl(Customizer.withDefaults()).disable())
+//                .headers(headers -> headers.cacheControl(Customizer.withDefaults()).disable())
 //                .csrf(AbstractHttpConfigurer::disable)
 //                .cors(AbstractHttpConfigurer::disable)
 
-    //                .formLogin(Customizer.withDefaults())
+//                .formLogin(Customizer.withDefaults())
 //                .formLogin(form -> form.defaultSuccessUrl("/hello"))
 
 
@@ -93,7 +92,6 @@ public class PathExcludeSecurityConfig {
 ////                        .logoutUrl("/logout"));
 //                        .logoutSuccessUrl("/login")
 //                );
-
 
 
 //    private String getSuccessUrl() {
@@ -121,23 +119,30 @@ public class PathExcludeSecurityConfig {
 //        successHandler.setUseReferer(true);
 //        return successHandler;
 //    }
-}
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//    @Bean
+//    public AuthenticationManager authenticationManager(@NotNull HttpSecurity http) throws Exception {
+////        return http.getSharedObject(AuthenticationManagerBuilder.class)
+////                .build();
+//        return new AuthenticationManager() {
+//            @Override
+//            public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+//                String username = authentication.getName();
+//                String password = authentication.getCredentials().toString();
+//                UserDetails userDetails = usersConfig.defaultUsers().loadUserByUsername(username);
+//                if (userDetails != null && passwordEncoder().matches(password, userDetails.getPassword())) {
+//                    return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
+//                }
+//                userDetails = userApplicationService.loadUserByUsername(username);
+//                if (userDetails != null && passwordEncoder().matches(password, userDetails.getPassword())) {
+//                    return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
+//                } else {
+//                    throw new AuthenticationException("Неверный логин или пароль") {
+//                    };
+//                }
+//            }
+//        };
+//    }

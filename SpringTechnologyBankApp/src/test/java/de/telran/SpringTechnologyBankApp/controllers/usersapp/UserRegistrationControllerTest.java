@@ -1,28 +1,13 @@
 package de.telran.SpringTechnologyBankApp.controllers.usersapp;
 
-import de.telran.SpringTechnologyBankApp.configurations.securityWeb.PathExcludeSecurityConfig;
-import de.telran.SpringTechnologyBankApp.dtos.usersapp.UserApplicationDto;
-import de.telran.SpringTechnologyBankApp.entities.enums.RoleType;
-import de.telran.SpringTechnologyBankApp.services.usersapp.impl.UserApplicationServiceImpl;
-import jakarta.servlet.http.HttpServletRequest;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import de.telran.SpringTechnologyBankApp.configurations.securityWeb.SecurityConfig;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @WebMvcTest(UserRegistrationController.class)
-@Import(PathExcludeSecurityConfig.class)
+@Import(SecurityConfig.class)
 class UserRegistrationControllerTest {
 
 //    @Autowired

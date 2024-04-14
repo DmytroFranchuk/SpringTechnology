@@ -290,6 +290,8 @@ VALUES (100.00, 'EUR', 'TRANSFER', current_timestamp, 2, 3,
        (700.00, 'USD', 'DEPOSIT', current_timestamp, 6, 8,
         'Deposit to Sarah Miller Savings from Elizabeth Garcia Savings', '3456789012-DEPOSIT-USD-6-8');
 
+
+
 INSERT INTO public.account_agreement (account_id, agreement_id)
 SELECT a.id AS account_id, agr.id AS agreement_id
 FROM public.accounts a

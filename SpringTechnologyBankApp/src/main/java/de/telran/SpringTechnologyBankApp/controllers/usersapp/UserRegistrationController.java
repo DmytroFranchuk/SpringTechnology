@@ -1,38 +1,47 @@
 package de.telran.SpringTechnologyBankApp.controllers.usersapp;
 
 import de.telran.SpringTechnologyBankApp.dtos.usersapp.UserApplicationDto;
-import de.telran.SpringTechnologyBankApp.mappers.bank.ManagerMapper;
+import de.telran.SpringTechnologyBankApp.entities.usersapp.UserApplication;
 import de.telran.SpringTechnologyBankApp.services.usersapp.interf.UserApplicationService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/registration")
+@RequestMapping("/api/v1/registration/users")
 @RequiredArgsConstructor
 public class UserRegistrationController {
-
     private final UserApplicationService userApplicationService;
-    private final ManagerMapper managerMapper;
-    private final HttpServletRequest request;
 
-    @PostMapping("addUser")
-    @PreAuthorize("hasRole('REGISTRAR')")
+
+    @PreAuthorize("hasRole('ROLE_REGISTRAR')")
+    @PostMapping(value = "add")
     public ResponseEntity<String> addNewUser(@RequestBody UserApplicationDto userAppDto) {
         userApplicationService.addUser(userAppDto);
         return ResponseEntity.ok("Пользователь успешно зарегистрирован");
     }
 
 
+    @PreAuthorize("hasRole('ROLE_REGISTRAR')")
+    @GetMapping(value = "/{id}")
+    public UserApplication getByName(@PathVariable Long id) {
+        return userApplicationService.getUserId(id);
+    }
 
 
+    @PreAuthorize("hasRole('ROLE_REGISTRAR')")
+    @GetMapping(value = "/all")
+    public List<UserApplication> getAll() {
+        return userApplicationService.getAll();
+    }
+}
 
 
+//    @PreAuthorize("hasRole('ROLE_ANONYMOUS')")
+//    @PreAuthorize("permitAll()")
 
 //    @PostMapping("/addUser")
 //    public ResponseEntity<String> addNewUser(@RequestBody @NotNull UserAndManagerDto userAndManagerDto) {
@@ -106,4 +115,3 @@ public class UserRegistrationController {
 //
 //        return ResponseEntity.ok(managerDto);
 //    }
-}

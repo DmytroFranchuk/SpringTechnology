@@ -29,5 +29,7 @@ public class SpringTechnologyBankAppApplication implements CommandLineRunner {
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator(
                 new ClassPathResource("db/data.sql"));
         databasePopulator.execute(dataSource);
+
+
     }
 }

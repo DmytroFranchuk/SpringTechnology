@@ -37,15 +37,4 @@ public class RoleUserApplication implements GrantedAuthority {
     public String getAuthority() {
         return roleType.name();
     }
-
-//    public void addUserApplication(UserApplication userApplication) {
-//        if (users.add(userApplication)) {
-//            userApplication.getRoles().add(this);
-//        }
-//    }
-
-//    public void removeUserApplication(UserApplication userApplication) {
-//        users.remove(userApplication);
-//        userApplication.getRoles().remove(this);
-//    }
 }

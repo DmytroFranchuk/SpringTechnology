@@ -63,6 +63,20 @@ public class Account {
     )
     private Set<Agreement> agreements = new HashSet<>();
 
+    @OneToMany(
+            mappedBy = "debitAccount",
+            cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH},
+            orphanRemoval = true
+    )
+    private Set<Transaction> debitTransactions = new HashSet<>();
+
+    @OneToMany(
+            mappedBy = "creditAccount",
+            cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH},
+            orphanRemoval = true
+    )
+    private Set<Transaction> creditTransactions = new HashSet<>();
+
     public void addAgreement(Agreement agreement) {
         agreements.add(agreement);
         agreement.getAccounts().add(this);
@@ -73,13 +87,6 @@ public class Account {
         agreement.getAccounts().remove(this);
     }
 
-    @OneToMany(
-            mappedBy = "debitAccount",
-            cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH},
-            orphanRemoval = true
-    )
-    private Set<Transaction> debitTransactions = new HashSet<>();
-
     public void addDebitAccount(Transaction debitAccount) {
         debitTransactions.add(debitAccount);
         debitAccount.setDebitAccount(this);
@@ -89,13 +96,6 @@ public class Account {
         debitTransactions.remove(debitAccount);
         debitAccount.setDebitAccount(null);
     }
-
-    @OneToMany(
-            mappedBy = "creditAccount",
-            cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH},
-            orphanRemoval = true
-    )
-    private Set<Transaction> creditTransactions = new HashSet<>();
 
     public void addCreditAccount(Transaction creditAccount) {
         creditTransactions.add(creditAccount);

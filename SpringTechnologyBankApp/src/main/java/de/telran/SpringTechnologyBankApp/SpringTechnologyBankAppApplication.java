@@ -24,12 +24,10 @@ public class SpringTechnologyBankAppApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         userApplicationService.initializeRoles();
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator(
                 new ClassPathResource("db/data.sql"));
         databasePopulator.execute(dataSource);
-
-
     }
 }

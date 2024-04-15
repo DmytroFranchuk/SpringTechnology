@@ -39,7 +39,7 @@ INSERT INTO public.clients (created_at,
                             updated_at,
                             tax_number,
                             login,
-                            "password")
+                            password)
 VALUES ('2024-03-24 15:30:00'::timestamp, 1, 'Some Address 1', 'client1@email.com', 'John', 'Doe', '1234567890',
         'ROLE_CLIENT', 'ACTIVE', '2024-03-24 15:30:00'::timestamp, '1234567890', 'john_doe', 'password123'),
        ('2024-03-24 15:30:00'::timestamp, 2, 'Some Address 2', 'client2@email.com', 'Jane', 'Smith', '2345678901',
@@ -184,7 +184,7 @@ INSERT INTO public.accounts (balance,
                              updated_at,
                              acct_type,
                              curr_code,
-                             "name",
+                             name,
                              status_type)
 VALUES (5000.00, 1, '2024-03-24 15:30:00'::timestamp, '2024-03-24 15:30:00'::timestamp, 'CREDIT', 'EUR', 'John Doe Savings', 'ACTIVE'),
        (10000.0, 1, '2024-03-24 15:30:00'::timestamp, '2024-03-24 15:30:00'::timestamp, 'CREDIT', 'EUR', 'John Doe Checking', 'ACTIVE'),

@@ -73,20 +73,25 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     @Transactional
-    public void deleteManagerById(Long id) {
+    public boolean deleteManagerById(Long id) {
         Manager managerToDelete = managerRepository.findById(id)
                 .orElseThrow(() -> new NotFoundEntityException("Менеджер с id: " + id + " не найден"));
         try {
-            managerToDelete.setStatusType(StatusType.REMOVED);
-            managerRepository.save(managerToDelete);
-            Manager transitManager = createTransitManager();
-            managerRepository.save(transitManager);
-            List<Client> clientsToTransfer = clientRepository.findAllByManagerId(id);
-            List<Product> productsToTransfer = productRepository.findAllByManagerId(id);
-            clientsToTransfer.forEach(client -> client.setManager(transitManager));
-            productsToTransfer.forEach(product -> product.setManager(transitManager));
-            clientRepository.saveAll(clientsToTransfer);
-            productRepository.saveAll(productsToTransfer);
+            if (managerToDelete.getStatusType() != StatusType.REMOVED) {
+                managerToDelete.setStatusType(StatusType.REMOVED);
+                managerRepository.save(managerToDelete);
+                Manager transitManager = createTransitManager();
+                managerRepository.save(transitManager);
+                List<Client> clientsToTransfer = clientRepository.findAllByManagerId(id);
+                List<Product> productsToTransfer = productRepository.findAllByManagerId(id);
+                clientsToTransfer.forEach(client -> client.setManager(transitManager));
+                productsToTransfer.forEach(product -> product.setManager(transitManager));
+                clientRepository.saveAll(clientsToTransfer);
+                productRepository.saveAll(productsToTransfer);
+                return true;
+            } else {
+                return false;
+            }
         } catch (Exception exception) {
             throw new NotDeletionEntityException("Не удалось удалить менеджера с id: " + id);
         }

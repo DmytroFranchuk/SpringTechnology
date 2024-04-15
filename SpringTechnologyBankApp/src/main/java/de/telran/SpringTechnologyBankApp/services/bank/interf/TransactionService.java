@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface TransactionService {
+
     TransactionResponseDto createTransaction(TransactionDto transaction);
 
     List<TransactionDto> getAllTransactionsByClientId(Long clientId);

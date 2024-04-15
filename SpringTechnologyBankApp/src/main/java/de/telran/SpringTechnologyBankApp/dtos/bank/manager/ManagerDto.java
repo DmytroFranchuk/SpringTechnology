@@ -20,26 +20,24 @@ public class ManagerDto {
 
     @NotNull
     @NotBlank
-    @Pattern(regexp = "[a-zA-Z-]", message = "Manager first name contains invalid characters!")
+    @Pattern(regexp = "[a-zA-Z-]+", message = "Manager first name contains invalid characters!")
     @Size(max = 100, message = "Managers first name can not be longer than 100 characters.")
     private String firstName;
 
     @NotNull
     @NotBlank
-    @Pattern(regexp = "[a-zA-Z-]", message = "Manager last name contains invalid characters!")
+    @Pattern(regexp = "[a-zA-Z-]+", message = "Manager last name contains invalid characters!")
     @Size(max = 200, message = "Managers last name can not be longer than 200 characters.")
     private String lastName;
 
     @NotNull
     @NotBlank
-    @Pattern(regexp = "[a-zA-Z0-9]{3,}")
-//    @JsonIgnore
+    @Pattern(regexp = "[a-zA-Z0-9]{3,}", message = "должно быть не менее 3 символов")
     private String login;
 
     @NotNull
     @NotBlank
     @Pattern(regexp = "[a-zA-Z0-9]{3,}")
-//    @JsonIgnore
     private String password;
 
     @NotNull
@@ -50,19 +48,13 @@ public class ManagerDto {
     @Size(max = 200)
     private String description;
 
-    @NotNull
-    @NotBlank
-    @Pattern(regexp = "[A-Z]+", message = "Manager status can be only ACTIVE, PENDING, REMOVED, BLOCKED or INACTIVE.")
     private StatusType statusType;
 
-    @Pattern(regexp = "ROLE_MANAGER")
     private RoleType roleType;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-//    private Set<Client> clients = new HashSet<>();
-//    private Set<Product> products = new HashSet<>();
     private List<ProductForManagerDto> products = new ArrayList<>();
     private List<ClientForManagerDto> clients = new ArrayList<>();
 

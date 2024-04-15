@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(of = {"amount", "description", "currencyCode"})
 @EqualsAndHashCode(of = {"amount", "currencyCode"})
 @DynamicUpdate
 @Entity
@@ -50,4 +49,19 @@ public class Transaction {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Account creditAccount;
+
+    @Override
+    public String toString() {
+        return "\nTransaction{" +
+                "id=" + id +
+                ", idempotencyKey='" + idempotencyKey + '\'' +
+                ", amount=" + amount +
+                ", description='" + description + '\'' +
+                ", currencyCode=" + currencyCode +
+                ", transactionType=" + transactionType +
+                ", createdAt=" + createdAt +
+                ", debitAccount=" + debitAccount +
+                ", creditAccount=" + creditAccount +
+                '}';
+    }
 }

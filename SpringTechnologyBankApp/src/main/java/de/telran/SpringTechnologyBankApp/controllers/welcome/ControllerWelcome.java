@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ControllerWelcome {
     private final HttpSession session;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -35,7 +36,6 @@ public class ControllerWelcome {
 
     @GetMapping("/echo")
     public String getEchoInfo(@NotNull HttpServletRequest request) {
-
         boolean checkPassword1 = checkPassword(
                 "1111",
                 "$2a$10$STSRftoUAwfWwAzWcRpc7.6VJNjwyka7N68Zq2YQlSopwyTG7/5h6"
@@ -48,7 +48,6 @@ public class ControllerWelcome {
                 "1212",
                 "$2a$10$XB/t3f/RlwZ4wE2Wek9hkuNkBTYRPnHLAqzjxuSn/K525nwULDUR6"
         );
-
         session.setMaxInactiveInterval(120);
         String ipAddress = request.getRemoteAddr();
         String sessionId = request.getSession().getId();

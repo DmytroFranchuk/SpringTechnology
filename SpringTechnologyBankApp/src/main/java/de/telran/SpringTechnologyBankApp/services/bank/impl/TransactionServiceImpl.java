@@ -3,29 +3,38 @@ package de.telran.SpringTechnologyBankApp.services.bank.impl;
 import de.telran.SpringTechnologyBankApp.dtos.bank.transaction.TransactionDto;
 import de.telran.SpringTechnologyBankApp.dtos.bank.transaction.TransactionResponseDto;
 import de.telran.SpringTechnologyBankApp.entities.bank.Account;
+import de.telran.SpringTechnologyBankApp.entities.bank.Client;
 import de.telran.SpringTechnologyBankApp.entities.bank.Transaction;
 import de.telran.SpringTechnologyBankApp.entities.enums.AccountType;
 import de.telran.SpringTechnologyBankApp.entities.enums.StatusType;
 import de.telran.SpringTechnologyBankApp.exceptions.NotActiveEntityException;
+import de.telran.SpringTechnologyBankApp.exceptions.NotFoundEntityException;
 import de.telran.SpringTechnologyBankApp.exceptions.NotValidTransactionException;
 import de.telran.SpringTechnologyBankApp.mappers.bank.TransactionMapper;
 import de.telran.SpringTechnologyBankApp.repositories.bank.AccountRepository;
+import de.telran.SpringTechnologyBankApp.repositories.bank.ClientRepository;
 import de.telran.SpringTechnologyBankApp.repositories.bank.TransactionRepository;
 import de.telran.SpringTechnologyBankApp.services.bank.interf.TransactionService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@SecurityRequirement(name = "BasicAuth")
 public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepository transactionRepository;
     private final AccountRepository accountRepository;
+    private final ClientRepository clientRepository;
     private final TransactionMapper transactionMapper;
 
     @Override
@@ -97,16 +106,32 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<TransactionDto> getAllTransactionsByClientId(Long clientId) {
-        return null;
+        Optional<Client> clientOptional = clientRepository.findById(clientId);
+        if (clientOptional.isEmpty()) {
+            throw new NotFoundEntityException("Нет клиента с id: " + clientId);
+        }
+        List<Transaction> transactions = transactionRepository.findAllTransactionsByClientId(clientId);
+        return transactions.stream()
+                .map(transactionMapper::transactionToTransactionDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<TransactionDto> getAllTransactionsByClientIdForLastMonth(Long clientId) {
-        return null;
+        LocalDate startDate = LocalDate.now().minusMonths(1).withDayOfMonth(1);
+        LocalDateTime startDateWithTime = startDate.atStartOfDay();
+        List<Transaction> transactions = transactionRepository
+                .findAllTransactionsByClientIdForLastMonth(clientId, startDateWithTime);
+        return transactions.stream()
+                .map(transactionMapper::transactionToTransactionDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<TransactionDto> getAllTransactionsWithAmountGreaterThan(BigDecimal amount) {
-        return null;
+        List<Transaction> transactions = transactionRepository.findAllTransactionsWithAmountGreaterThan(amount);
+        return transactions.stream()
+                .map(transactionMapper::transactionToTransactionDto)
+                .collect(Collectors.toList());
     }
 }

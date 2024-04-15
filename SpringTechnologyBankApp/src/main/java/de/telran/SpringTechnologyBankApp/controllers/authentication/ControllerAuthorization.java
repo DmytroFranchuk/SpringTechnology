@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class ControllerAuthorization {
 
+}
+
 //    @RequestMapping(value = "/login", method = RequestMethod.GET)
 //    public String getLoginPage() {
 //        return "loginPage";
@@ -14,4 +16,3 @@ public class ControllerAuthorization {
 //    public String getLogoutPage(HttpServletRequest request, HttpServletResponse response) {
 //        return "redirect:/login";
 //    }
-}

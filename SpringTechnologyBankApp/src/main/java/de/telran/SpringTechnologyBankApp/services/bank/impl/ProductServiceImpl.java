@@ -42,11 +42,6 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public ProductDto createProduct(ProductDto productDto) {
         try {
-//            return Optional.of(productDto)
-//                    .map(productMapper::productDtoToProduct)
-//                    .map(productRepository::save)
-//                    .map(productMapper::productToProductDto)
-//                    .orElseThrow(() -> new NotCreationEntityException("Не удалось создать продукт"));
             Product product = productMapper.productDtoToProduct(productDto);
             Product savedProduct = productRepository.save(product);
             return productMapper.productToProductDto(savedProduct);

@@ -66,9 +66,15 @@ public class Agreement {
         accounts.remove(account);
         account.getAgreements().remove(this);
     }
+}
 
-    // Связь_многие_к_одному (договор-счет)
-    // В_приложении_бизнес-модель_построена_как_многие_ко_многим
+
+
+
+
+
+
+// Связь_многие_к_одному (договор-счет)
+// В_приложении_бизнес-модель_построена_как_многие_ко_многим
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    private Account account;
-}

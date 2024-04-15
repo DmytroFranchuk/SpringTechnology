@@ -1,5 +1,6 @@
 package de.telran.SpringTechnologyBankApp.entities.history;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.telran.SpringTechnologyBankApp.entities.usersapp.UserApplication;
 import de.telran.SpringTechnologyBankApp.entities.enums.RoleType;
 import jakarta.persistence.*;
@@ -43,6 +44,7 @@ public class LoginUserHistory {
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     private UserApplication userApplication;
 }

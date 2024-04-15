@@ -99,26 +99,4 @@ public class UserApplication implements UserDetails {
                 ", userHistories=" + userHistories +
                 '}';
     }
-
-    //    public void addRoleUserApplication(RoleUserApplication role) {
-//        if (roles.add(role)) {
-//            role.getUsers().add(this);
-//        }
-//    }
-//
-//    public void removeRoleUserApplication(RoleUserApplication role) {
-//        roles.remove(role);
-//        role.getUsers().remove(this);
-//    }
-
-
-//    public void addClient(LoginUserHistory userHistory) {
-//        userHistories.add(userHistory);
-//        userHistory.setUserApplication(this);
-//    }
-//
-//    public void removeClient(LoginUserHistory userHistory) {
-//        userHistories.remove(userHistory);
-//        userHistory.setUserApplication(null);
-//    }
 }

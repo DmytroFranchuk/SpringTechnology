@@ -14,7 +14,7 @@ public interface ManagerService {
 
     ManagerDto updateManagerById(Long id, ManagerDto manager);
 
-    void deleteManagerById(Long id);
+    boolean deleteManagerById(Long id);
 
     List<ManagerDtoForByCondition> getAllManagersWhereStatusTypeIs(StatusType status);
 

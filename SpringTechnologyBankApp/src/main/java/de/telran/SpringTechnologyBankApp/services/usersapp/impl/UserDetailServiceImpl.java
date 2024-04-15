@@ -4,7 +4,7 @@ import de.telran.SpringTechnologyBankApp.configurations.securityWeb.InMemoryUser
 import de.telran.SpringTechnologyBankApp.entities.usersapp.UserApplication;
 import de.telran.SpringTechnologyBankApp.repositories.usersapp.UserApplicationRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.jaas.memory.InMemoryConfiguration;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,10 +28,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
         }
         UserApplication userApp = userApplicationRepository.findByLogin(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Нет пользователя по имени: " + username));
-        return new org.springframework.security.core.userdetails.User(
-                userApp.getUsername(),
-                userApp.getPassword(),
-                userApp.getRoles());
-
+        return new User(userApp.getUsername(), userApp.getPassword(), userApp.getRoles());
     }
 }

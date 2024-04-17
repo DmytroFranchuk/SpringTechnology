@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changes/v0.0.1-SNAPSHOT/create-tables-structure.yaml
+
+#  - include:
+#      file: db/changelog/changes/v0.0.1-SNAPSHOT/insert-test-data-table-managers.yaml
+#
+#  - include:
+#      file: db/changelog/changes/v0.0.1-SNAPSHOT/insert-test-data-table-products.yaml
+#
+#  - include:
+#      file: db/changelog/changes/v0.0.1-SNAPSHOT/insert-test-data-table-clients.yaml
+#
+#  - include:
+#      file: db/changelog/changes/v0.0.1-SNAPSHOT/insert-test-data-table-accounts.yaml
+#
+#  - include:
+#      file: db/changelog/changes/v0.0.1-SNAPSHOT/insert-test-data-table-agreements.yaml
+#
+#  - include:
+#      file: db/changelog/changes/v0.0.1-SNAPSHOT/insert-test-data-table-transactions.yaml

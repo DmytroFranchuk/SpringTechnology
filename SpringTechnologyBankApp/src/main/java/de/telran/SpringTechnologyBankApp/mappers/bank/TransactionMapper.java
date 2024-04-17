@@ -11,10 +11,12 @@ import org.mapstruct.factory.Mappers;
 public interface TransactionMapper {
     TransactionMapper INSTANCE = Mappers.getMapper(TransactionMapper.class);
 
-
+    @Mapping(target = "debitAccount.id", source = "senderAccountId")
+    @Mapping(target = "creditAccount.id", source = "recipientAccountId")
     Transaction transactionDtoToTransaction(TransactionDto transactionDto);
 
-
+    @Mapping(target = "senderAccountId", source = "debitAccount.id")
+    @Mapping(target = "recipientAccountId", source = "creditAccount.id")
     TransactionDto transactionToTransactionDto(Transaction transaction);
 
     @Mapping(target = "senderAccountId", source = "transaction.debitAccount.id")

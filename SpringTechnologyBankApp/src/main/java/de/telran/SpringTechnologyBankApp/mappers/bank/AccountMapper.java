@@ -1,8 +1,10 @@
 package de.telran.SpringTechnologyBankApp.mappers.bank;
 
 import de.telran.SpringTechnologyBankApp.dtos.bank.account.AccountDto;
+import de.telran.SpringTechnologyBankApp.dtos.bank.account.AgreementForAccountDto;
 import de.telran.SpringTechnologyBankApp.dtos.bank.client.AccountForClientDto;
 import de.telran.SpringTechnologyBankApp.entities.bank.Account;
+import de.telran.SpringTechnologyBankApp.entities.bank.Agreement;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -27,4 +29,19 @@ public interface AccountMapper {
     List<AccountDto> accountsToAccountDtos(List<Account> accounts);
 
     AccountForClientDto accountToAccountForClientDto(Account account);
+
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "interestRate", source = "interestRate")
+    @Mapping(target = "sum", source = "sum")
+    @Mapping(target = "currencyCode", source = "currencyCode")
+    @Mapping(target = "statusType", source = "statusType")
+    AgreementForAccountDto agreementToAgreementForAccountDto(Agreement agreement);
+
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "product", ignore = true)
+    @Mapping(target = "accounts", ignore = true)
+    Agreement agreementForAccountDtoToAgreement(AgreementForAccountDto agreementForAccountDto);
+
+
 }

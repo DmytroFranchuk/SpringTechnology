@@ -14,20 +14,20 @@ import javax.sql.DataSource;
 
 @SpringBootApplication
 @RequiredArgsConstructor
-public class SpringTechnologyBankAppApplication implements CommandLineRunner {
+public class SpringTechnologyBankApp implements CommandLineRunner {
 
     private final UserApplicationService userApplicationService;
     private final DataSource dataSource;
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringTechnologyBankAppApplication.class, args);
+        SpringApplication.run(SpringTechnologyBankApp.class, args);
     }
 
     @Override
     public void run(String... args) {
-        userApplicationService.initializeRoles();
-        ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator(
-                new ClassPathResource("db/data.sql"));
-        databasePopulator.execute(dataSource);
+//        userApplicationService.initializeRoles();
+//        ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator(
+//                new ClassPathResource("db/data.sql"));
+//        databasePopulator.execute(dataSource);
     }
 }

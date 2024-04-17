@@ -83,6 +83,14 @@ public class SwaggerConfig {
                 .pathsToMatch("/api/v1/transactions/**")
                 .build();
     }
+
+    @Bean
+    public GroupedOpenApi UserRegistrationApi() {
+        return GroupedOpenApi.builder()
+                .group("registration")
+                .pathsToMatch("/api/v1/registration/users/**")
+                .build();
+    }
 }
 
 

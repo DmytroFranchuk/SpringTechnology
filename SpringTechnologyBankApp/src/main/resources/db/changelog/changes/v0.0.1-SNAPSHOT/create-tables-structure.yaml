@@ -1,0 +1,633 @@
+databaseChangeLog:
+- changeSet:
+    id: 1713213747828-1
+    author: Dmytro_Franchuk
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            name: id
+            startWith: 39
+            type: BIGINT
+            constraints:
+                nullable: false
+                primaryKey: true
+                primaryKeyName: accounts_pkey
+        - column:
+              name: client_id
+              type: BIGINT
+        - column:
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: balance
+            type: numeric(38, 2)
+        - column:
+              name: status_type
+              type: VARCHAR(255)
+              constraints:
+                  checkConstraint: "status_type IN ('ACTIVE', 'PENDING', 'REMOVED', 'BLOCKED', 'INACTIVE')"
+        - column:
+              name: acct_type
+              type: VARCHAR(255)
+              constraints:
+                  checkConstraint: "acct_type IN ('DEBIT', 'CREDIT')"
+        - column:
+              name: curr_code
+              type: VARCHAR(255)
+              constraints:
+                  checkConstraint: "curr_code IN ('EUR', 'USD')"
+        - column:
+              name: created_at
+              type: TIMESTAMP WITHOUT TIME ZONE
+              constraints:
+                  nullable: false
+        - column:
+              name: updated_at
+              type: TIMESTAMP WITHOUT TIME ZONE
+              constraints:
+                  nullable: false
+        tableName: accounts
+
+- changeSet:
+    id: 1713213747828-2
+    author: Dmytro_Franchuk
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            name: id
+            startWith: 31
+            type: BIGINT
+            constraints:
+                nullable: false
+                primaryKey: true
+                primaryKeyName: agreements_pkey
+        - column:
+              name: product_id
+              type: BIGINT
+        - column:
+            name: interest_rate
+            type: numeric(38, 2)
+        - column:
+            name: sum_value
+            type: numeric(38, 2)
+        - column:
+              name: curr_code
+              type: VARCHAR(255)
+              constraints:
+                  checkConstraint: "curr_code IN ('EUR', 'USD')"
+        - column:
+              name: status_type
+              type: VARCHAR(255)
+              constraints:
+                  checkConstraint: "status_type IN ('ACTIVE', 'PENDING', 'REMOVED', 'BLOCKED', 'INACTIVE')"
+        - column:
+            name: created_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+            constraints:
+                nullable: false
+        - column:
+            name: updated_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+            constraints:
+                nullable: false
+        tableName: agreements
+
+- changeSet:
+    id: 1713213747828-3
+    author: Dmytro_Franchuk
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            name: id
+            startWith: 31
+            type: BIGINT
+            constraints:
+                nullable: false
+                primaryKey: true
+                primaryKeyName: clients_pkey
+        - column:
+            name: manager_id
+            type: BIGINT
+        - column:
+              name: tax_number
+              type: VARCHAR(255)
+        - column:
+              name: first_name
+              type: VARCHAR(255)
+        - column:
+              name: last_name
+              type: VARCHAR(255)
+        - column:
+              name: login
+              type: VARCHAR(255)
+        - column:
+              name: password
+              type: VARCHAR(255)
+        - column:
+              name: email
+              type: VARCHAR(255)
+        - column:
+              name: address
+              type: VARCHAR(255)
+        - column:
+              name: phone
+              type: VARCHAR(255)
+        - column:
+              name: status_type
+              type: VARCHAR(255)
+              constraints:
+                  checkConstraint: "status_type IN ('ACTIVE', 'PENDING', 'REMOVED', 'BLOCKED', 'INACTIVE')"
+        - column:
+              name: role_type
+              type: VARCHAR(255)
+              constraints:
+                  checkConstraint: "role_type IN ('ROLE_ANONYMOUS', 'ROLE_CLIENT', 'ROLE_MANAGER', 'ROLE_ADMIN', 'ROLE_REGISTRAR')"
+        - column:
+            name: created_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+            constraints:
+                nullable: false
+        - column:
+            name: updated_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+            constraints:
+                nullable: false
+        tableName: clients
+
+- changeSet:
+    id: 1713213747828-4
+    author: Dmytro_Franchuk
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            name: id
+            startWith: 10
+            type: BIGINT
+            constraints:
+                nullable: false
+                primaryKey: true
+                primaryKeyName: managers_pkey
+        - column:
+            name: first_name
+            type: VARCHAR(255)
+        - column:
+            name: last_name
+            type: VARCHAR(255)
+        - column:
+              name: login
+              type: VARCHAR(255)
+        - column:
+              name: password
+              type: VARCHAR(255)
+        - column:
+              name: email
+              type: VARCHAR(255)
+        - column:
+              name: description
+              type: VARCHAR(255)
+        - column:
+              name: status_type
+              type: VARCHAR(255)
+              constraints:
+                  checkConstraint: "status_type IN ('ACTIVE', 'PENDING', 'REMOVED', 'BLOCKED', 'INACTIVE')"
+        - column:
+              name: role_type
+              type: VARCHAR(255)
+              constraints:
+                  checkConstraint: "role_type IN ('ROLE_ANONYMOUS', 'ROLE_CLIENT', 'ROLE_MANAGER', 'ROLE_ADMIN', 'ROLE_REGISTRAR')"
+        - column:
+            name: created_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+            constraints:
+                nullable: false
+        - column:
+            name: updated_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+            constraints:
+                nullable: false
+        tableName: managers
+
+- changeSet:
+    id: 1713213747828-5
+    author: Dmytro_Franchuk
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            name: id
+            startWith: 13
+            type: BIGINT
+            constraints:
+                nullable: false
+                primaryKey: true
+                primaryKeyName: products_pkey
+        - column:
+              name: manager_id
+              type: BIGINT
+        - column:
+              name: name
+              type: VARCHAR(255)
+        - column:
+              name: status_type
+              type: VARCHAR(255)
+              constraints:
+                  checkConstraint: "status_type IN ('ACTIVE', 'PENDING', 'REMOVED', 'BLOCKED', 'INACTIVE')"
+        - column:
+              name: product_type
+              type: VARCHAR(255)
+              constraints:
+                  checkConstraint: "product_type IN ('CREDIT_ACCOUNT', 'DEBIT_ACCOUNT', 'SAVING_ACCOUNT')"
+        - column:
+              name: curr_code
+              type: VARCHAR(255)
+              constraints:
+                  checkConstraint: "curr_code IN ('EUR', 'USD')"
+        - column:
+              name: interest_rate
+              type: numeric(38, 2)
+        - column:
+              name: limit_sum
+              type: numeric(38, 2)
+        - column:
+            name: created_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+            constraints:
+                nullable: false
+        - column:
+            name: updated_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+            constraints:
+                nullable: false
+        tableName: products
+
+- changeSet:
+    id: 1713213747828-6
+    author: Dmytro_Franchuk
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            name: id
+            startWith: 6
+            type: BIGINT
+            constraints:
+                nullable: false
+                primaryKey: true
+                primaryKeyName: roles_pkey
+        - column:
+            name: role_type
+            type: VARCHAR(255)
+            constraints:
+                checkConstraint: "role_type IN ('ROLE_ANONYMOUS', 'ROLE_CLIENT', 'ROLE_MANAGER', 'ROLE_ADMIN', 'ROLE_REGISTRAR')"
+        tableName: roles
+
+- changeSet:
+    id: 1713213747828-7
+    author: Dmytro_Franchuk
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            name: id
+            startWith: 29
+            type: BIGINT
+            constraints:
+                nullable: false
+                primaryKey: true
+                primaryKeyName: transactions_pkey
+        - column:
+              name: debit_account_id
+              type: BIGINT
+        - column:
+              name: credit_account_id
+              type: BIGINT
+        - column:
+              name: idem_key
+              type: VARCHAR(255)
+        - column:
+            name: amount
+            type: numeric(38, 2)
+        - column:
+              name: description
+              type: VARCHAR(255)
+        - column:
+              name: curr_code
+              type: VARCHAR(255)
+              constraints:
+                  checkConstraint: "curr_code IN ('EUR', 'USD')"
+        - column:
+              name: trans_type
+              type: VARCHAR(255)
+              constraints:
+                  checkConstraint: "trans_type IN ('TRANSFER', 'PAYMENT', 'CASH', 'DEPOSIT')"
+        - column:
+            name: created_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+            constraints:
+                nullable: false
+        tableName: transactions
+
+- changeSet:
+    id: 1713213747828-8
+    author: Dmytro_Franchuk
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            name: id
+            type: BIGINT
+            constraints:
+                nullable: false
+                primaryKey: true
+                primaryKeyName: users_app_pkey
+        - column:
+              name: user_login
+              type: VARCHAR(255)
+        - column:
+              name: user_password
+              type: VARCHAR(255)
+        - column:
+              name: session_token
+              type: VARCHAR(255)
+        - column:
+            name: session_expiry
+            type: TIMESTAMP WITHOUT TIME ZONE
+        tableName: users_app
+
+- changeSet:
+    id: 1713213747828-9
+    author: Dmytro_Franchuk
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            name: id
+            type: BIGINT
+            constraints:
+                nullable: false
+                primaryKey: true
+                primaryKeyName: users_login_history_pkey
+        - column:
+              name: user_application_id
+              type: BIGINT
+        - column:
+              name: user_login
+              type: VARCHAR(255)
+        - column:
+              name: login_time
+              type: TIMESTAMP WITHOUT TIME ZONE
+              constraints:
+                  nullable: false
+        - column:
+              name: logout_time
+              type: TIMESTAMP WITHOUT TIME ZONE
+              constraints:
+                  nullable: false
+        - column:
+              name: ip_address
+              type: VARCHAR(255)
+        - column:
+              name: session_token
+              type: VARCHAR(255)
+        - column:
+              name: session_expiry
+              type: INTEGER
+        - column:
+              name: role_type
+              type: VARCHAR(255)
+              constraints:
+                  checkConstraint: "role_type IN ('ROLE_ANONYMOUS', 'ROLE_CLIENT', 'ROLE_MANAGER', 'ROLE_ADMIN', 'ROLE_REGISTRAR')"
+        tableName: users_login_history
+
+- changeSet:
+    id: 1713213747828-10
+    author: Dmytro_Franchuk
+    changes:
+    - createTable:
+        columns:
+        - column:
+            name: account_id
+            type: BIGINT
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: account_agreement_pkey
+        - column:
+            name: agreement_id
+            type: BIGINT
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: account_agreement_pkey
+        tableName: account_agreement
+
+- changeSet:
+    id: 1713213747828-11
+    author: Dmytro_Franchuk
+    changes:
+    - createTable:
+        columns:
+        - column:
+            name: role_id
+            type: BIGINT
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: user_role_pkey
+        - column:
+            name: user_id
+            type: BIGINT
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: user_role_pkey
+        tableName: user_role
+
+- changeSet:
+    id: 1713213747828-12
+    author: Dmytro_Franchuk
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: manager_id
+        baseTableName: clients
+        constraintName: fkb04ux70c9nn0yi4y3pmitlfo9
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: managers
+        validate: true
+
+- changeSet:
+    id: 1713213747828-13
+    author: Dmytro_Franchuk
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: agreement_id
+        baseTableName: account_agreement
+        constraintName: fkbgutpyakxgu4rmnlumbkraja5
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: agreements
+        validate: true
+
+- changeSet:
+    id: 1713213747828-14
+    author: Dmytro_Franchuk
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: credit_account_id
+        baseTableName: transactions
+        constraintName: fkc6bgqjw4pbwa2xsg2ql7n5grv
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: accounts
+        validate: true
+
+- changeSet:
+    id: 1713213747828-15
+    author: Dmytro_Franchuk
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: user_role
+        constraintName: fkfk4mgx97egireqqgek7n2o32b
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users_app
+        validate: true
+
+- changeSet:
+    id: 1713213747828-16
+    author: Dmytro_Franchuk
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: manager_id
+        baseTableName: products
+        constraintName: fkg98uwjewytai1i7fe2cu4xioi
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: managers
+        validate: true
+
+- changeSet:
+    id: 1713213747828-17
+    author: Dmytro_Franchuk
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: client_id
+        baseTableName: accounts
+        constraintName: fkgymog7firrf8bnoiig61666ob
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: clients
+        validate: true
+
+- changeSet:
+    id: 1713213747828-18
+    author: Dmytro_Franchuk
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_application_id
+        baseTableName: users_login_history
+        constraintName: fkjbxiqrgyqe7frqaswpt7usha8
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users_app
+        validate: true
+
+- changeSet:
+    id: 1713213747828-19
+    author: Dmytro_Franchuk
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: debit_account_id
+        baseTableName: transactions
+        constraintName: fkkpq7imh2rcolpghjxb6b8ouwc
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: accounts
+        validate: true
+
+- changeSet:
+    id: 1713213747828-20
+    author: Dmytro_Franchuk
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: account_id
+        baseTableName: account_agreement
+        constraintName: fkmkinnxfcg1dpgbrii0wevy3ce
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: accounts
+        validate: true
+
+- changeSet:
+    id: 1713213747828-21
+    author: Dmytro_Franchuk
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: role_id
+        baseTableName: user_role
+        constraintName: fkt7e7djp752sqn6w22i6ocqy6q
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: roles
+        validate: true
+
+- changeSet:
+    id: 1713213747828-22
+    author: Dmytro_Franchuk
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: product_id
+        baseTableName: agreements
+        constraintName: fkvtp15t5x12x5lk4akedy8e4n
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: products
+        validate: true

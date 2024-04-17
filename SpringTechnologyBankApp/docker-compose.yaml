@@ -1,0 +1,27 @@
+version: '3.8'
+
+volumes:
+  pg_bankofdeutsch:
+
+services:
+  bankofdeutsch_db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1
+      - POSTGRES_DB=bankofdeutsch
+    volumes:
+      - pg_bankofdeutsch:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5501:5432"
+  app:
+    restart: always
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - bankofdeutsch_db
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:postgresql://bankofdeutsch_db:5432/bankofdeutsch'
+      JAVA_OPTS: '-Xmx512m'

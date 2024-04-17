@@ -18,6 +18,9 @@ public interface UserApplicationMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "roles", ignore = true)
     @Mapping(target = "userHistories", ignore = true)
+    @Mapping(target = "sessionToken", ignore = true)
+    @Mapping(target = "sessionExpiry", ignore = true)
+    @Mapping(target = "authorities", ignore = true)
     UserApplication dtoToUserApplication(UserApplicationDto dto);
 
     default RoleType map(Set<RoleUserApplication> roles) {

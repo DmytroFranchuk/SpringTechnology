@@ -1,6 +1,7 @@
 package de.telran.SpringTechnologyBankApp.controllers.usersapp;
 
 import de.telran.SpringTechnologyBankApp.configurations.securityWeb.SecurityConfig;
+import de.telran.SpringTechnologyBankApp.controllers.registrationusers.UserRegistrationController;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 

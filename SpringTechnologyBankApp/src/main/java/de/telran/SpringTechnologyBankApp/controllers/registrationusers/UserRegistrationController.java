@@ -1,4 +1,4 @@
-package de.telran.SpringTechnologyBankApp.controllers.usersapp;
+package de.telran.SpringTechnologyBankApp.controllers.registrationusers;
 
 import de.telran.SpringTechnologyBankApp.dtos.usersapp.UserApplicationDto;
 import de.telran.SpringTechnologyBankApp.services.usersapp.interf.UserApplicationService;

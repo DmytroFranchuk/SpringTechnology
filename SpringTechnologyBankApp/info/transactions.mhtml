@@ -1,0 +1,161 @@
+From: <Saved by Blink>
+Snapshot-Content-Location: file:///C:/Users/Tel-ran.de/AppData/Local/Temp/.dbeaver-temp4189391187286982646/data-files/20240417-122419.html
+Subject: 
+Date: Wed, 17 Apr 2024 12:24:43 +0200
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--SbCJvAcawYKRKk0bRpSIQPx7Lfka8l7ntV6hcsXgPT----"
+
+
+------MultipartBoundary--SbCJvAcawYKRKk0bRpSIQPx7Lfka8l7ntV6hcsXgPT----
+Content-Type: text/html
+Content-ID: <frame-C805271B27F0B5FEECA79314F96A4441@mhtml.blink>
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/Users/Tel-ran.de/AppData/Local/Temp/.dbeaver-temp4189391187286982646/data-files/20240417-122419.html
+
+<!DOCTYPE html><html><head><meta http-equiv=3D"Content-Type" content=3D"tex=
+t/html; charset=3DUTF-8"><link rel=3D"stylesheet" type=3D"text/css" href=3D=
+"cid:css-4d8aaaa8-b7b1-465d-9fd6-9861f18ec7c1@mhtml.blink" />
+
+</head>
+<body>
+<table><tbody><tr><th colspan=3D"9"><pre><code>transactions</code></pre></t=
+h></tr><tr><th>id</th><th>debit_account_id</th><th>credit_account_id</th><t=
+h>idem_key</th><th>amount</th><th>description</th><th>curr_code</th><th>tra=
+ns_type</th><th>created_at</th></tr><tr class=3D"odd"><td>1</td><td>3</td><=
+td>2</td><td>1234567890-TRANSFER-EUR-2-3</td><td>100</td><td>Transfer from =
+Jane Smith Savings to Michael Johnson Checking</td><td>EUR</td><td>TRANSFER=
+</td><td>2024-04-16 19:51:12.258</td></tr>
+<tr><td>2</td><td>5</td><td>4</td><td>2345678901-PAYMENT-USD-4-5</td><td>25=
+0</td><td>Payment from Anna Williams Savings to David Brown Checking</td><t=
+d>USD</td><td>PAYMENT</td><td>2024-04-16 19:51:12.258</td></tr>
+<tr class=3D"odd"><td>3</td><td>7</td><td>6</td><td>3456789012-CASH-EUR-6-7=
+</td><td>500</td><td>Cash withdrawal from Sarah Miller Savings to Robert Jo=
+nes Checking</td><td>EUR</td><td>CASH</td><td>2024-04-16 19:51:12.258</td><=
+/tr>
+<tr><td>4</td><td>9</td><td>8</td><td>4567890123-DEPOSIT-USD-8-9</td><td>75=
+0</td><td>Deposit to Elizabeth Garcia Savings from James Wilson Checking</t=
+d><td>USD</td><td>DEPOSIT</td><td>2024-04-16 19:51:12.258</td></tr>
+<tr class=3D"odd"><td>5</td><td>11</td><td>10</td><td>5678901234-TRANSFER-E=
+UR-10-11</td><td>1&nbsp;000</td><td>Transfer from Mary Anderson Savings to =
+David Walker Checking</td><td>EUR</td><td>TRANSFER</td><td>2024-04-16 19:51=
+:12.258</td></tr>
+<tr><td>6</td><td>13</td><td>12</td><td>6789012345-PAYMENT-USD-12-13</td><t=
+d>200</td><td>Payment from Linda Moore Savings to Barbara Martin Checking</=
+td><td>USD</td><td>PAYMENT</td><td>2024-04-16 19:51:12.258</td></tr>
+<tr class=3D"odd"><td>7</td><td>15</td><td>14</td><td>7890123456-CASH-EUR-1=
+4-15</td><td>450</td><td>Cash withdrawal from Jennifer Lewis Savings to Wil=
+liam Clark Checking</td><td>EUR</td><td>CASH</td><td>2024-04-16 19:51:12.25=
+8</td></tr>
+<tr><td>8</td><td>3</td><td>2</td><td>1234567890-TRANSFER-EUR-2-3</td><td>1=
+00</td><td>Transfer from Jane Smith Savings to Michael Johnson Checking</td=
+><td>EUR</td><td>TRANSFER</td><td>2024-04-16 19:51:12.258</td></tr>
+<tr class=3D"odd"><td>9</td><td>5</td><td>4</td><td>2345678901-PAYMENT-USD-=
+4-5</td><td>250</td><td>Payment from Anna Williams Savings to David Brown C=
+hecking</td><td>USD</td><td>PAYMENT</td><td>2024-04-16 19:51:12.258</td></t=
+r>
+<tr><td>10</td><td>7</td><td>6</td><td>3456789012-CASH-EUR-6-7</td><td>500<=
+/td><td>Cash withdrawal from Sarah Miller Savings to Robert Jones Checking<=
+/td><td>EUR</td><td>CASH</td><td>2024-04-16 19:51:12.258</td></tr>
+<tr class=3D"odd"><td>11</td><td>9</td><td>8</td><td>4567890123-DEPOSIT-USD=
+-8-9</td><td>750</td><td>Deposit to Elizabeth Garcia Savings from James Wil=
+son Checking</td><td>USD</td><td>DEPOSIT</td><td>2024-04-16 19:51:12.258</t=
+d></tr>
+<tr><td>12</td><td>11</td><td>10</td><td>5678901234-TRANSFER-EUR-10-11</td>=
+<td>1&nbsp;000</td><td>Transfer from Mary Anderson Savings to David Walker =
+Checking</td><td>EUR</td><td>TRANSFER</td><td>2024-04-16 19:51:12.258</td><=
+/tr>
+<tr class=3D"odd"><td>13</td><td>13</td><td>12</td><td>6789012345-PAYMENT-U=
+SD-12-13</td><td>200</td><td>Payment from Linda Moore Savings to Barbara Ma=
+rtin Checking</td><td>USD</td><td>PAYMENT</td><td>2024-04-16 19:51:12.258</=
+td></tr>
+<tr><td>14</td><td>15</td><td>14</td><td>7890123456-CASH-EUR-14-15</td><td>=
+450</td><td>Cash withdrawal from Jennifer Lewis Savings to William Clark Ch=
+ecking</td><td>EUR</td><td>CASH</td><td>2024-04-16 19:51:12.258</td></tr>
+<tr class=3D"odd"><td>15</td><td>17</td><td>16</td><td>8901234567-DEPOSIT-U=
+SD-16-17</td><td>800</td><td>Deposit to David Lopez Savings from Maria Gonz=
+alez Checking</td><td>USD</td><td>DEPOSIT</td><td>2024-04-16 19:51:12.258</=
+td></tr>
+<tr><td>16</td><td>19</td><td>18</td><td>9012345678-TRANSFER-EUR-18-19</td>=
+<td>300</td><td>Transfer from Susan Wilson Savings to Emma Garcia Savings</=
+td><td>EUR</td><td>TRANSFER</td><td>2024-04-16 19:51:12.258</td></tr>
+<tr class=3D"odd"><td>17</td><td>4</td><td>2</td><td>1234567890-TRANSFER-EU=
+R-2-4</td><td>150</td><td>Transfer from Jane Smith Savings to Anna Williams=
+ Savings</td><td>EUR</td><td>TRANSFER</td><td>2024-04-16 19:51:12.258</td><=
+/tr>
+<tr><td>18</td><td>6</td><td>4</td><td>2345678901-PAYMENT-USD-4-6</td><td>3=
+50</td><td>Payment from Anna Williams Savings to Sarah Miller Savings</td><=
+td>USD</td><td>PAYMENT</td><td>2024-04-16 19:51:12.258</td></tr>
+<tr class=3D"odd"><td>19</td><td>8</td><td>6</td><td>3456789012-CASH-EUR-6-=
+8</td><td>600</td><td>Cash withdrawal from Sarah Miller Savings to Elizabet=
+h Garcia Savings</td><td>EUR</td><td>CASH</td><td>2024-04-16 19:51:12.258</=
+td></tr>
+<tr><td>20</td><td>10</td><td>8</td><td>4567890123-DEPOSIT-USD-8-10</td><td=
+>900</td><td>Deposit to Elizabeth Garcia Savings from Mary Anderson Savings=
+</td><td>USD</td><td>DEPOSIT</td><td>2024-04-16 19:51:12.258</td></tr>
+<tr class=3D"odd"><td>21</td><td>12</td><td>10</td><td>5678901234-TRANSFER-=
+EUR-10-12</td><td>1&nbsp;200</td><td>Transfer from Mary Anderson Savings to=
+ Linda Moore Savings</td><td>EUR</td><td>TRANSFER</td><td>2024-04-16 19:51:=
+12.258</td></tr>
+<tr><td>22</td><td>14</td><td>12</td><td>6789012345-PAYMENT-USD-12-14</td><=
+td>300</td><td>Payment from Linda Moore Savings to Jennifer Lewis Savings</=
+td><td>USD</td><td>PAYMENT</td><td>2024-04-16 19:51:12.258</td></tr>
+<tr class=3D"odd"><td>23</td><td>16</td><td>14</td><td>7890123456-CASH-EUR-=
+14-16</td><td>550</td><td>Cash withdrawal from Jennifer Lewis Savings to Da=
+vid Lopez Savings</td><td>EUR</td><td>CASH</td><td>2024-04-16 19:51:12.258<=
+/td></tr>
+<tr><td>24</td><td>18</td><td>16</td><td>8901234567-DEPOSIT-USD-16-18</td><=
+td>850</td><td>Deposit to David Lopez Savings from Susan Wilson Savings</td=
+><td>USD</td><td>DEPOSIT</td><td>2024-04-16 19:51:12.258</td></tr>
+<tr class=3D"odd"><td>25</td><td>2</td><td>18</td><td>9012345678-TRANSFER-E=
+UR-18-2</td><td>400</td><td>Transfer from Susan Wilson Savings to Jane Smit=
+h Savings</td><td>EUR</td><td>TRANSFER</td><td>2024-04-16 19:51:12.258</td>=
+</tr>
+<tr><td>26</td><td>4</td><td>2</td><td>1234567890-PAYMENT-USD-2-4</td><td>2=
+00</td><td>Payment from Jane Smith Savings to Anna Williams Savings</td><td=
+>USD</td><td>PAYMENT</td><td>2024-04-16 19:51:12.258</td></tr>
+<tr class=3D"odd"><td>27</td><td>6</td><td>4</td><td>2345678901-CASH-EUR-4-=
+6</td><td>500</td><td>Cash withdrawal from Anna Williams Savings to Sarah M=
+iller Savings</td><td>EUR</td><td>CASH</td><td>2024-04-16 19:51:12.258</td>=
+</tr>
+<tr><td>28</td><td>8</td><td>6</td><td>3456789012-DEPOSIT-USD-6-8</td><td>7=
+00</td><td>Deposit to Sarah Miller Savings from Elizabeth Garcia Savings</t=
+d><td>USD</td><td>DEPOSIT</td><td>2024-04-16 19:51:12.258</td></tr>
+<tr class=3D"odd"><td>29</td><td>14</td><td>1</td><td>7e6d4aeb-7c0c-4483-af=
+5e-6b76d74345c5</td><td>100</td><td>Transaction description</td><td>EUR</td=
+><td>CASH</td><td>2024-04-16 23:40:48.082</td></tr>
+<tr><td>30</td><td>14</td><td>1</td><td>7e6d4aeb-7c0c-4483-af5e-7b76d74345c=
+5</td><td>100</td><td>Transaction description</td><td>EUR</td><td>CASH</td>=
+<td>2024-04-16 23:41:23.323</td></tr>
+<tr class=3D"odd"><td>31</td><td>14</td><td>1</td><td>7e6d4aeb-7c0c-4483-a0=
+5e-7b76d74345c5</td><td>10&nbsp;000</td><td>Transaction description</td><td=
+>EUR</td><td>CASH</td><td>2024-04-16 23:41:42.364</td></tr>
+<tr><td>32</td><td>14</td><td>1</td><td>7e6d4aeb-7c0c-4483-a05e-7b7674345c5=
+</td><td>1&nbsp;000</td><td>Transaction description</td><td>EUR</td><td>CAS=
+H</td><td>2024-04-16 23:49:40.521</td></tr>
+</tbody></table></body></html>
+------MultipartBoundary--SbCJvAcawYKRKk0bRpSIQPx7Lfka8l7ntV6hcsXgPT----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-4d8aaaa8-b7b1-465d-9fd6-9861f18ec7c1@mhtml.blink
+
+@charset "utf-8";
+
+table { border: medium solid rgb(100, 149, 237); border-collapse: collapse;=
+ width: 100%; }
+
+th { font-family: monospace; border: thin solid rgb(100, 149, 237); padding=
+: 5px; background-color: rgb(208, 227, 250); }
+
+th { text-align: left; }
+
+td { font-family: sans-serif; border: thin solid rgb(100, 149, 237); paddin=
+g: 5px; text-align: center; }
+
+.odd { background: rgb(232, 237, 255); }
+
+img { padding: 5px; border-style: solid; border-image: initial; border-colo=
+r: rgb(221, 221, 221) rgb(170, 170, 170) rgb(170, 170, 170) rgb(221, 221, 2=
+21); border-width: 1px 2px 2px 1px; background-color: white; }
+------MultipartBoundary--SbCJvAcawYKRKk0bRpSIQPx7Lfka8l7ntV6hcsXgPT------

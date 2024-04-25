@@ -37,7 +37,14 @@ public class ProductServiceImpl implements ProductService {
     private final ManagerRepository managerRepository;
     private final ProductMapper productMapper;
 
-
+    /**
+     * Создает новый продукт на основе предоставленных данных и сохраняет его в базе данных.
+     *
+     * @param productDto данные о продукте для создания
+     * @return созданный продукт в виде {@link ProductDto}
+     * @throws DataIntegrityViolationException если произошла ошибка нарушения целостности данных
+     * @throws RuntimeException               если возникла непредвиденная ошибка при создании продукта
+     */
     @Override
     @Transactional
     public ProductDto createProduct(ProductDto productDto) {
@@ -54,12 +61,28 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /**
+     * Возвращает информацию о продукте по его идентификатору.
+     *
+     * @param id идентификатор продукта
+     * @return информация о продукте в виде {@link ProductDto}
+     * @throws NotFoundEntityException если продукт с указанным идентификатором не найден
+     */
     @Override
     public ProductDto getProductById(Long id) {
         return productRepository.findById(id).map(productMapper::productToProductDto)
                 .orElseThrow(() -> new NotFoundEntityException("Не найден продукт с id: " + id));
     }
 
+    /**
+     * Обновляет информацию о продукте по его идентификатору.
+     *
+     * @param id идентификатор продукта
+     * @param product информация о продукте для обновления в виде {@link ProductDto}
+     * @return обновленная информация о продукте в виде {@link ProductDto}
+     * @throws NotFoundEntityException если продукт с указанным идентификатором не найден
+     * @throws NotUpdatedEntityException если не удалось обновить информацию о продукте
+     */
     @Override
     public ProductDto updateProductById(Long id, ProductDto product) {
         Product existingProduct = productRepository.findById(id)
@@ -75,6 +98,12 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /**
+     * Удаляет продукт по его идентификатору.
+     *
+     * @param id идентификатор продукта
+     * @throws NotFoundEntityException если продукт с указанным идентификатором не найден
+     */
     @Override
     public void deleteProductById(Long id) {
         Product existingProduct = productRepository.findById(id)
@@ -83,6 +112,13 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(existingProduct);
     }
 
+    /**
+     * Получает список всех продуктов с указанным статусом.
+     *
+     * @param status статус продуктов
+     * @return список DTO продуктов с указанным статусом
+     * @throws NotFoundEntityException если не найдено ни одного продукта с указанным статусом
+     */
     @Override
     public List<ProductDto> getAllProductsWhereStatusTypeIs(StatusType status) {
         List<Product> products = productRepository.findAllByStatusType(status);
@@ -91,6 +127,13 @@ public class ProductServiceImpl implements ProductService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Получает список всех продуктов определенного типа и валюты.
+     *
+     * @param type тип продукта
+     * @param code код валюты
+     * @return список DTO продуктов заданного типа и валюты
+     */
     @Override
     public List<ProductDto> getAllProductsByProductTypeAndCurrencyCode(ProductType type, CurrencyCode code) {
         List<Product> products = productRepository.findAllByProductTypeAndCurrencyCode(type, code);
@@ -99,6 +142,12 @@ public class ProductServiceImpl implements ProductService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Обновляет поля существующего продукта на основе информации из DTO продукта.
+     *
+     * @param productDto       DTO продукта с обновленной информацией
+     * @param existingProduct  существующий продукт, который нужно обновить
+     */
     private void updateProductFields(ProductDto productDto, Product existingProduct) {
         updateFieldIfNotNull(productDto.getInterestRate(), existingProduct::setInterestRate);
         updateFieldIfNotNull(productDto.getCurrencyCode(), existingProduct::setCurrencyCode);

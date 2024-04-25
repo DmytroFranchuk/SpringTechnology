@@ -4,6 +4,7 @@ import de.telran.SpringTechnologyBankApp.dtos.usersapp.UserApplicationDto;
 import de.telran.SpringTechnologyBankApp.entities.enums.RoleType;
 import de.telran.SpringTechnologyBankApp.entities.usersapp.RoleUserApplication;
 import de.telran.SpringTechnologyBankApp.entities.usersapp.UserApplication;
+import de.telran.SpringTechnologyBankApp.exceptions.NotDeletionEntityException;
 import de.telran.SpringTechnologyBankApp.exceptions.NotExistEntityException;
 import de.telran.SpringTechnologyBankApp.exceptions.NotFoundEntityException;
 import de.telran.SpringTechnologyBankApp.mappers.usersapp.UserApplicationMapper;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -33,8 +35,15 @@ public class UserApplicationServiceImpl implements UserApplicationService {
 
     public UserApplicationDto getUserById(Long id) {
         UserApplication user = userApplicationRepository.findById(id)
-                .orElseThrow(() -> new NotFoundEntityException("Не найден пользователь с id: " + id)) ;
+                .orElseThrow(() -> new NotFoundEntityException("Не найден пользователь с id: " + id));
         return userApplicationMapper.userApplicationToDto(user);
+    }
+
+    public List<UserApplicationDto> getUsers() {
+        List<UserApplication> users = userApplicationRepository.findAll();
+        return users.stream()
+                .map(userApplicationMapper::userApplicationToDto)
+                .collect(Collectors.toList());
     }
 
     public void addUser(UserApplicationDto userAppDto) {
@@ -52,11 +61,14 @@ public class UserApplicationServiceImpl implements UserApplicationService {
         userApplicationRepository.save(newUser);
     }
 
-    public List<UserApplicationDto> getUsers() {
-        List<UserApplication> users = userApplicationRepository.findAll();
-        return users.stream()
-                .map(userApplicationMapper::userApplicationToDto)
-                .collect(Collectors.toList());
+    public boolean deleteUserById(Long id) {
+        Optional<UserApplication> user = userApplicationRepository.findById(id);
+        if (user.isPresent()) {
+            userApplicationRepository.deleteById(id);
+            return true;
+        } else {
+            throw new NotDeletionEntityException("User with id " + id + " not found");
+        }
     }
 
     private RoleUserApplication validateRoleExists(RoleType roleType) {

@@ -33,4 +33,13 @@ public class UserRegistrationController {
     public List<UserApplicationDto> getAll() {
         return userApplicationService.getUsers();
     }
+
+    @PreAuthorize("hasRole('ROLE_REGISTRAR')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable("id") Long id) {
+        if (userApplicationService.deleteUserById(id)) {
+            return ResponseEntity.ok("User with id " + id + " has been successfully deleted");
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

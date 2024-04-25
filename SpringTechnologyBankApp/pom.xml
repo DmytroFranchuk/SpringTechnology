@@ -21,7 +21,6 @@
         <org.projectlombok.version>1.18.30</org.projectlombok.version>
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -132,9 +131,7 @@
             <version>0.8.12</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -207,16 +204,15 @@
                     </execution>
                 </executions>
                 <configuration>
-<!--                    <excludes>-->
-<!--                        <exclude>com/**/entities/*</exclude>-->
-<!--                        <exclude>com/**/entities/**</exclude>-->
-<!--                        <exclude>com/**/aspects/*</exclude>-->
-<!--                        <exclude>com/**/utilities/*</exclude>-->
-<!--                        <exclude>com/**/dtos/*</exclude>-->
-<!--                        <exclude>com/**/configurations/**</exclude>-->
-<!--                        <exclude>com/**/controllers/handler/GlobalExceptionHandler.class</exclude>-->
-<!--                        <exclude>com/**/SpringTechnologyBankApp.class</exclude>-->
-<!--                    </excludes>-->
+                    <excludes>
+                        <exclude>de/**/aspects/**</exclude>
+                        <exclude>de/**/configurations/**</exclude>
+                        <exclude>de/**/dtos/**</exclude>
+                        <exclude>de/**/exceptions/*</exclude>
+                        <exclude>de/**/repositories/**/*</exclude>
+                        <exclude>de/**/services/history/**/*</exclude>
+                        <exclude>de/**/controllers/handler/*</exclude>
+                    </excludes>
                     <destFile>${project.build.directory}/jacoco.exec</destFile>
                 </configuration>
             </plugin>

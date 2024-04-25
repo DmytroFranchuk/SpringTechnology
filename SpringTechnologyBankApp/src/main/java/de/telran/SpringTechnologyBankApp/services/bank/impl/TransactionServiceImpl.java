@@ -37,6 +37,15 @@ public class TransactionServiceImpl implements TransactionService {
     private final ClientRepository clientRepository;
     private final TransactionMapper transactionMapper;
 
+    /**
+     * Создает новую транзакцию на основе информации из DTO транзакции.
+     * Проверяет существование транзакции с заданным идентификатором идемпотентности.
+     * Если транзакция с таким идентификатором уже существует, возвращает информацию о ней.
+     * В противном случае создает новую транзакцию, сохраняет ее и обновляет балансы счетов отправителя и получателя.
+     *
+     * @param transactionDto DTO транзакции с информацией о транзакции
+     * @return DTO ответа с информацией о созданной транзакции
+     */
     @Override
     @Transactional
     public TransactionResponseDto createTransaction(TransactionDto transactionDto) {
@@ -58,6 +67,14 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionMapper.transactionToTransactionResponseDto(transaction);
     }
 
+    /**
+     * Находит активный счет по его идентификатору.
+     * Если счет не найден или неактивен, выбрасывает исключение.
+     *
+     * @param accountId идентификатор счета
+     * @return активный счет
+     * @throws NotActiveEntityException если счет не найден или неактивен
+     */
     private Account findActiveAccountById(Long accountId) {
         Account account = accountRepository.findByIdAndStatusAccount(accountId, StatusType.ACTIVE);
         if (account == null) {
@@ -66,6 +83,15 @@ public class TransactionServiceImpl implements TransactionService {
         return account;
     }
 
+    /**
+     * Проверяет соответствие валюты и типа счетов отправителя и получателя.
+     * Если валюты не совпадают или типы счетов не соответствуют требованиям транзакции,
+     * выбрасывает исключение.
+     *
+     * @param senderAccount     счет отправителя
+     * @param recipientAccount  счет получателя
+     * @throws NotValidTransactionException если валюты не совпадают или типы счетов не соответствуют требованиям транзакции
+     */
     private void validateCurrencyAndAccountType(Account senderAccount, Account recipientAccount) {
         if (!senderAccount.getCurrencyCode().equals(recipientAccount.getCurrencyCode())) {
             throw new NotValidTransactionException("Несоответствие валюты между счетами отправителя и получателя");
@@ -76,12 +102,29 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
+    /**
+     * Проверяет достаточность средств на счете отправителя для проведения транзакции.
+     * Если сумма транзакции превышает баланс счета отправителя, выбрасывает исключение.
+     *
+     * @param senderAccount счет отправителя
+     * @param amount        сумма транзакции
+     * @throws NotValidTransactionException если сумма транзакции превышает баланс счета отправителя
+     */
     private void validateSufficientFunds(Account senderAccount, BigDecimal amount) {
         if (senderAccount.getBalance().compareTo(amount) < 0) {
             throw new NotValidTransactionException("Недостаточно средств на счете отправителя");
         }
     }
 
+    /**
+     * Сохраняет новую транзакцию в базу данных.
+     *
+     * @param transactionDto     данные о транзакции
+     * @param senderAccount      счет отправителя
+     * @param recipientAccount   счет получателя
+     * @param idempotencyKey     идентификатор транзакции для обеспечения идемпотентности
+     * @return сохраненная транзакция
+     */
     private Transaction saveTransaction(
             TransactionDto transactionDto,
             Account senderAccount,
@@ -98,12 +141,26 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionRepository.save(transaction);
     }
 
+    /**
+     * Обновляет балансы счетов после проведения транзакции.
+     *
+     * @param senderAccount      счет отправителя
+     * @param recipientAccount   счет получателя
+     * @param amount             сумма транзакции
+     */
     private void updateAccountBalances(Account senderAccount, Account recipientAccount, BigDecimal amount) {
         senderAccount.setBalance(senderAccount.getBalance().subtract(amount));
         recipientAccount.setBalance(recipientAccount.getBalance().add(amount));
         accountRepository.saveAll(Arrays.asList(senderAccount, recipientAccount));
     }
 
+    /**
+     * Получает список всех транзакций для указанного идентификатора клиента.
+     *
+     * @param clientId идентификатор клиента
+     * @return список транзакций для указанного клиента
+     * @throws NotFoundEntityException если клиент с указанным идентификатором не найден
+     */
     @Override
     public List<TransactionDto> getAllTransactionsByClientId(Long clientId) {
         Optional<Client> clientOptional = clientRepository.findById(clientId);
@@ -116,6 +173,12 @@ public class TransactionServiceImpl implements TransactionService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Получает список всех транзакций для указанного идентификатора клиента за последний месяц.
+     *
+     * @param clientId идентификатор клиента
+     * @return список транзакций для указанного клиента за последний месяц
+     */
     @Override
     public List<TransactionDto> getAllTransactionsByClientIdForLastMonth(Long clientId) {
         LocalDate startDate = LocalDate.now().minusMonths(1).withDayOfMonth(1);
@@ -127,6 +190,12 @@ public class TransactionServiceImpl implements TransactionService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Получает список всех транзакций с суммой больше указанной.
+     *
+     * @param amount минимальная сумма транзакции
+     * @return список транзакций с суммой больше указанной
+     */
     @Override
     public List<TransactionDto> getAllTransactionsWithAmountGreaterThan(BigDecimal amount) {
         List<Transaction> transactions = transactionRepository.findAllTransactionsWithAmountGreaterThan(amount);

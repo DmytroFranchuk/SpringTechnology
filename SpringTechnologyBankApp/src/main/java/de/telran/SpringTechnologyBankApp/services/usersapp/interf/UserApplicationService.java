@@ -10,6 +10,7 @@ public interface UserApplicationService {
     void initializeRoles();
     List<UserApplicationDto> getUsers();
     UserApplicationDto getUserById(Long id);
+    boolean deleteUserById(Long id);
     void addUser(UserApplicationDto userAppDto);
     void addAllRoles(List<RoleUserApplication> roles);
 }

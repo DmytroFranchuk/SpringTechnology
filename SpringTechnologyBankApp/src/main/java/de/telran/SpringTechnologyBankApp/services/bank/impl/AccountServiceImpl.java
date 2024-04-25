@@ -38,19 +38,32 @@ public class AccountServiceImpl implements AccountService {
     public final ClientRepository clientRepository;
     public final AccountMapper accountMapper;
 
+    /**
+     * Создает новый счет на основе переданных данных в объекте {@link AccountDto}.
+     * При создании счета проверяет существование клиента по идентификатору, указанному в {@code accountDto}.
+     * Проверяет наличие договоров, связанных со счетом, и их соответствие существующим договорам в репозитории.
+     * Если все проверки пройдены успешно, создает новый счет на основе данных из {@code accountDto},
+     * сохраняет его в репозитории и возвращает объект {@link AccountDto}, соответствующий созданному счету.
+     *
+     * @param accountDto объект {@link AccountDto}, содержащий данные для создания нового счета
+     * @return объект {@link AccountDto}, представляющий созданный счет
+     * @throws NotExistEntityException        если клиент с указанным идентификатором не найден
+     * @throws NotExistEntityException        если в объекте {@code accountDto} не указаны договоры
+     * @throws IllegalArgumentException       если один или несколько идентификаторов договоров в {@code accountDto}
+     *                                        не соответствуют ни одному договору в репозитории
+     * @throws DataIntegrityViolationException если нарушена целостность данных при сохранении счета
+     * @throws RuntimeException               если возникает другое исключение при создании счета
+     */
     @Override
     public AccountDto createAccount(AccountDto accountDto) {
         try {
             Client client = clientRepository.findById(accountDto.getClientId())
                     .orElseThrow(() -> new NotExistEntityException(CLIENT_NOT_FOUND_ERROR
                             + accountDto.getClientId()));
-            System.out.println(client);
-
             Set<AgreementForAccountDto> agreements = accountDto.getAgreements();
             if (agreements == null || agreements.isEmpty()) {
                 throw new NotExistEntityException(MISSING_AGREEMENTS_ERROR);
             }
-
             Set<Long> agreementIds = agreements.stream()
                     .map(AgreementForAccountDto::getId)
                     .collect(Collectors.toSet());
@@ -64,7 +77,6 @@ public class AccountServiceImpl implements AccountService {
             if (!missingAgreementIds.isEmpty()) {
                 throw new IllegalArgumentException(MISSING_AGREEMENTS_IDS_ERROR + missingAgreementIds);
             }
-
             Account account = accountMapper.accountDtoToAccount(accountDto);
             Account savedAccount = accountRepository.save(account);
             return accountMapper.accountToAccountDto(savedAccount);
@@ -77,12 +89,34 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    /**
+     * Получает счет по указанному идентификатору.
+     * Если счет с указанным идентификатором найден, возвращает объект {@link AccountDto},
+     * содержащий информацию о найденном счете.
+     *
+     * @param id идентификатор счета
+     * @return объект {@link AccountDto}, представляющий найденный счет
+     * @throws NotFoundEntityException если счет с указанным идентификатором не найден
+     */
     @Override
     public AccountDto getAccountById(Long id) {
         return accountRepository.findById(id).map(accountMapper::accountToAccountDto)
                 .orElseThrow(() -> new NotFoundEntityException("Не найден счет с id: " + id));
     }
 
+    /**
+     * Обновляет информацию о счете по указанному идентификатору.
+     * Если счет с указанным идентификатором найден, обновляет его поля на основе переданных данных.
+     * Если поле {@code clientId} в переданном объекте {@code account} не равно {@code null},
+     * производит поиск клиента с указанным идентификатором. Если клиент найден, устанавливает его в качестве клиента для счета.
+     *
+     * @param id      идентификатор счета, который нужно обновить
+     * @param account объект {@link AccountDto}, содержащий новую информацию о счете
+     * @return объект {@link AccountDto}, представляющий обновленный счет
+     * @throws NotFoundEntityException   если счет с указанным идентификатором не найден
+     * @throws NotExistEntityException   если клиент с указанным идентификатором не найден
+     * @throws NotUpdatedEntityException если не удалось обновить счет с указанным идентификатором
+     */
     @Override
     public AccountDto updateAccountById(Long id, AccountDto account) {
         Account existingAccount = accountRepository.findById(id)
@@ -103,6 +137,14 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    /**
+     * Удаляет счет с указанным идентификатором.
+     * Если счет с указанным идентификатором не найден, генерируется исключение {@link NotFoundEntityException}.
+     * После удаления счета его статус устанавливается на "REMOVED".
+     *
+     * @param id идентификатор счета, который нужно удалить
+     * @throws NotFoundEntityException если счет с указанным идентификатором не найден
+     */
     @Override
     public void deleteAccountById(Long id) {
         Account existingAccount = accountRepository.findById(id)
@@ -111,24 +153,49 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.save(existingAccount);
     }
 
+    /**
+     * Возвращает список всех счетов с указанным статусом.
+     *
+     * @param status статус счетов, по которому нужно выполнить поиск
+     * @return список счетов с указанным статусом в виде списка объектов {@link AccountDto}
+     */
     @Override
     public List<AccountDto> getAllAccountsWhereStatusTypeIs(StatusType status) {
         List<Account> accounts = accountRepository.findAccountsByStatusAccount(status);
         return accountMapper.accountsToAccountDtos(accounts);
     }
 
+    /**
+     * Возвращает список счетов, принадлежащих указанному клиенту.
+     *
+     * @param clientId идентификатор клиента, чьи счета необходимо найти
+     * @return список счетов, принадлежащих указанному клиенту, в виде списка объектов {@link AccountDto}
+     */
     @Override
     public List<AccountDto> getAccountsByClientId(Long clientId) {
         List<Account> accounts = accountRepository.findAccountsByClientId(clientId);
         return accountMapper.accountsToAccountDtos(accounts);
     }
 
+    /**
+     * Возвращает список счетов, управляемых указанным менеджером.
+     *
+     * @param managerId идентификатор менеджера, чьи счета необходимо найти
+     * @return список счетов, управляемых указанным менеджером, в виде списка объектов {@link AccountDto}
+     */
     @Override
     public List<AccountDto> getAccountsByManagerId(Long managerId) {
         List<Account> accounts = accountRepository.findAccountsByManagerId(managerId);
         return accountMapper.accountsToAccountDtos(accounts);
     }
 
+    /**
+     * Обновляет поля существующего счета на основе данных из объекта AccountDto.
+     * Если соответствующее поле в AccountDto не является null, то оно обновляется в существующем счете.
+     *
+     * @param accountDto      данные счета для обновления
+     * @param existingAccount существующий счет, который нужно обновить
+     */
     private void updateAccountFields(AccountDto accountDto, Account existingAccount) {
         updateFieldIfNotNull(accountDto.getName(), existingAccount::setName);
         updateFieldIfNotNull(accountDto.getBalance(), existingAccount::setBalance);
@@ -139,6 +206,15 @@ public class AccountServiceImpl implements AccountService {
         updateFieldIfNotNull(accountDto.getUpdatedAt(), existingAccount::setUpdatedAt);
     }
 
+    /**
+     * Обновляет соглашения (договоры) у существующего счета на основе данных из объекта AccountDto.
+     * Если в объекте AccountDto указаны обновленные соглашения, то они добавляются к существующему счету.
+     * Если какое-либо соглашение не найдено в базе данных, генерируется исключение NotFoundEntityException.
+     *
+     * @param updatedAccountDto данные обновленного счета, включая обновленные соглашения
+     * @param existingAccount   существующий счет, у которого нужно обновить соглашения
+     * @throws NotFoundEntityException если какое-либо из соглашений не найдено в базе данных
+     */
     private void updateAgreements(AccountDto updatedAccountDto, Account existingAccount) {
         Set<AgreementForAccountDto> updatedAgreements = updatedAccountDto.getAgreements();
         if (updatedAgreements != null && !updatedAgreements.isEmpty()) {
